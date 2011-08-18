@@ -1,0 +1,4 @@
+Filename: "testConfig.properties"
+url = https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal
+#qa_url = 
+#preprod_url = 

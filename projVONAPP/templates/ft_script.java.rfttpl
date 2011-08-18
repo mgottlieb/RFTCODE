@@ -1,0 +1,77 @@
+%script:packageDeclaration%
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+import org.eclipse.hyades.execution.runtime.datapool.IDatapoolIterator;
+import %helper:fullName%;
+import com.rational.test.ft.*;
+import com.rational.test.ft.object.interfaces.*;
+import com.rational.test.ft.object.interfaces.SAP.*;
+import com.rational.test.ft.object.interfaces.WPF.*;
+import com.rational.test.ft.object.interfaces.dojo.*;
+import com.rational.test.ft.object.interfaces.siebel.*;
+import com.rational.test.ft.object.interfaces.flex.*;
+import com.rational.test.ft.object.interfaces.generichtmlsubdomain.*;
+import com.rational.test.ft.script.*;
+import com.rational.test.ft.value.*;
+import com.rational.test.ft.vp.*;
+import com.ibm.rational.test.ft.object.interfaces.sapwebportal.*;
+%script:customImports%
+/**
+ * Description   : Functional Test Script
+ * @author %system:user.name%
+ */
+public class %script:name% extends %helper:name%
+{
+	/**
+	 * Script Name   : <b>%script:name%</b>
+	 * Generated     : <b>%date% %time%</b>
+	 * Description   : Functional Test Script
+	 * Original Host : %static:com.rational.test.ft.sys.OperatingSystem.getVersion%
+	 * 
+	 * @since  %date:yyyy/MM/dd%
+	 * @author %system:user.name%
+	 */
+	public void testMain(Object[] args) 
+	{
+		%script:keywordSteps%
+		%script:insertBefore% this entire line will be deleted during initial script generation
+		%script:endSimplifiedScript% for simplified script. Don't ever delete this line
+		
+		/**Instantiate Properties file at Config folder.
+		 * Make sure there is testConfig.properties saved at config folder.
+		 */
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileInputStream("..\\Config\\testConfig.properties"));
+			//Initiate Shared Object Map here. 
+			VONAPP_0000_ObjectMap_Helper objMap = new VONAPP_0000_ObjectMap_Helper();
+					
+			/**closeBrowserAny(): close all existing browsers*/
+			closeBrowserAny();
+			/**startBrowser(): Open new browser and invoke URL defined in Config.Properties file
+			*/
+			startBrowser("Internet Explorer", properties.getProperty("url"));
+			objMap.document_eBenefitsHome().waitForExistence(120.0, 20.0);
+			
+			/**Open and Initialize DataPool.
+			To initialize csv testdata file as corresponding test datapool, uncomment below line(s). 
+			Also, make sure there is a corresponding csv file at TestData folder.
+			csv filename should be same as testscript name. 
+			*/
+			/*IDatapoolIterator oDP = getDataPoolObj("..\\projVONAPP\\TestData\\%script:name% .csv");		
+			while(!oDP.dpDone()){
+				// TODO Insert code here
+				 
+			}
+			*/
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
+
