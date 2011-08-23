@@ -1,4 +1,5 @@
 package TestScripts;
+
 import resources.TestScripts.VONAPP_0000_ObjectMap_HelperHelper;
 import com.rational.test.ft.*;
 import com.rational.test.ft.object.interfaces.*;
@@ -32,4 +33,3 @@ public class VONAPP_0000_ObjectMap_Helper extends VONAPP_0000_ObjectMap_HelperHe
 		// TODO Insert code here
 	}
 }
-

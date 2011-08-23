@@ -75,9 +75,9 @@ public class VONAPP_0001_Invoke_and_Login extends VONAPP_0001_Invoke_and_LoginHe
 				objMap.button_LoginSubmit().click();
 				
 				// TODO validate the text from the header
-				RootTestObject.getScreenTestObject().performTest(
+				/*RootTestObject.getScreenTestObject().performTest(
                                         Screen_imageVP(), 2.0, 
-                                        20.0);
+                                        20.0);*/
 				
 				
 				oDP.dpNext();

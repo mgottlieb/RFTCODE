@@ -2,6 +2,7 @@ package TestScripts;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Properties;
 import org.eclipse.hyades.execution.runtime.datapool.IDatapoolIterator;
 import resources.TestScripts.VONAPP_0003_smoke_test_validationHelper;
@@ -42,13 +43,13 @@ public class VONAPP_0003_smoke_test_validation extends VONAPP_0003_smoke_test_va
 		Properties properties = new Properties();
 		try {
 			
-			properties.load(new FileInputStream("..\\Config\\testConfig.properties"));
+			properties.load(new FileInputStream("..//projVONAPP//Config//testConfig.txt"));
 			
 			//Initiate Shared Object Map here. 
 			VONAPP_0000_ObjectMap_Helper objMap = new VONAPP_0000_ObjectMap_Helper();
 					
 			/**closeBrowserAny(): close all existing browsers*/
-			//closeBrowserAny();
+			closeBrowserAny();
 			/**startBrowser(): Open new browser and invoke URL defined in Config.Properties file
 			*/
 			startBrowser("Internet Explorer", properties.getProperty("url"));
@@ -60,67 +61,72 @@ public class VONAPP_0003_smoke_test_validation extends VONAPP_0003_smoke_test_va
 			csv filename should be same as testscript name. **/
 			
 			//String[] testscriptName = this.getScriptName().split("\\.");
-			IDatapoolIterator oDP = getDataPoolObj("..\\projVONAPP\\TestData\\VONAPP_0003_smoke_test_validation .csv");		
+			//IDatapoolIterator oDP = getDataPoolObj("..\\projVONAPP\\TestData\\VONAPP_0003_smoke_test_validation .csv");		
 			
-			while(!oDP.dpDone()){
+			//while(!oDP.dpDone()){
 				// TODO Insert code here
 				
 				// Invoke eBenefits and login as Roger.Reyes
+				callScript("TestScripts.VONAPP_0001_Invoke_and_Login");
 				
-				document_eBenefitsHome().waitForExistence(120.0, 20.0);
-				
-				System.out.print("Login user: " + oDP.dpString("LoginName") + "\n");
-				System.out.print("Password for user: " + oDP.dpString("Password") + "\n");
-				objMap.link_logIn().waitForExistence(6.0, 2.0);
-				objMap.link_logIn().click();
-				
-				//Waiting for the page is completely loaded with login submit button is on the page
-				objMap.button_LoginSubmit().waitForExistence(180.0, 20.0);
-				
-				objMap.text_loginId().setText(oDP.dpString("LoginName"));
-				objMap.text_pwd().setText(oDP.dpString("Password"));
-				objMap.button_LoginSubmit().click();
-				//what to do for security certificate.for the next page
-				
-				//////////////////////////////////////////////////////////////////////////
 				//Click tab 'My eBenefits' and click link 'Veterans Online Application (VONAPP) Direct Connect' 
-				
+				objMap.link_myEBenefits().waitForExistence(6.0,2.0);
 				objMap.link_myEBenefits().click();
-				objMap.link_veteransOnlineApplication().click();
 				
+				objMap.link_veteransOnlineApplication().waitForExistence(6.0,2.0);
+				objMap.link_veteransOnlineApplication().click();
+			
 				//Validate new Tab 'Manage Dependents (VONAPP II)' exist and enabled. 
-
-				//objMap.manageDependetsVONAPPII().exists();// What to do for Manage dependents??????????
-				ValidateIfEnabled(document_eBenefitsHome(),"Manage Dependents (VONAPP II)");
+				objMap.tab_ManageDependentsVONAPPII().exists();
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"Manage Dependents (VONAPP II)");
 				
 				//Validate new Links 'Apply for Dependent Benefits >', 'Manage Dependents', 'submit a new application', 
 				//'Continue', 'Delete' and 'contact the VA'. exist and enabled. 
 				
 				objMap.link_applyForDependentBenefits().exists();
-				ValidateIfEnabled(document_eBenefitsHome(),"Apply for Dependent Benefits");
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"Apply for Dependent Benefits");
 				
-				//objMap.link_ManageDependents().exists();// What to do for Manage dependents??????????
-				ValidateIfEnabled(document_eBenefitsHome(),"Manage Dependents");
+				objMap.link_ManageDependents().exists();
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"Manage Dependents");
 				
 				objMap.link_submitANewApplication().exists();
-				ValidateIfEnabled(document_eBenefitsHome(),"submit a new application");
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"submit a new application");
 				
-				objMap.link_btnSubmitAndContinue().exists();
-				ValidateIfEnabled(document_eBenefitsHome(),"Continue");
+				objMap.link_Continue().exists();
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"Continue");
 				
-				//need to add for delete and contact the VA exists 
-				//objMap.link_delete().exists(); ?????????
-				ValidateIfEnabled(document_eBenefitsHome(),"Delete");
-				ValidateIfEnabled(document_eBenefitsHome(),"Contact the VA");
+				objMap.link_Delete().exists();
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"Delete");
+				
+				objMap.link_ContactTheVA().exists();
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),"Contact the VA");
 				
 				//Validate table 'Open Applications' for it's headers exist and are in the expected sequence. 
-				ValidateIfEnabled(document_eBenefitsHome(),"Open Appllications");//???????
+				objMap.table_OpenApplications().exists();
+				//print the Hash Table
+				System.out.println(objMap.table_OpenApplications().getTestDataTypes());
+				printTableData(objMap.table_OpenApplications());
+				//The keys in the Hash table are the valid test data type arguments to getTestData()
+				objMap.table_OpenApplications().getTestData("Application Type");
+				objMap.table_OpenApplications().getTestData("Created");
+				objMap.table_OpenApplications().getTestData("Last Updated");
+				objMap.table_OpenApplications().getTestData("Last Opened");
+				objMap.table_OpenApplications().getTestData("Expired");
 				
 				//Validate table 'Submitted Applications' for it's headers exist and are in the expected sequence
-				objMap.link_submitANewApplication().exists();
-				ValidateIfEnabled(document_eBenefitsHome(),"Submitted Applications");//???????
-			}
-			
+				objMap.table_SubmittedApplications().exists();
+				//print the Hash Table
+				System.out.println(objMap.table_SubmittedApplications().getTestDataTypes());
+				printTableData(objMap.table_SubmittedApplications());
+				//The keys in the Hash table are the valid test data type arguments to getTestData()
+				objMap.table_SubmittedApplications().getTestData("Application Type");
+				objMap.table_SubmittedApplications().getTestData("Created");
+				objMap.table_SubmittedApplications().getTestData("Last Updated");
+				objMap.table_SubmittedApplications().getTestData("Expired");
+				objMap.table_SubmittedApplications().getTestData("Submitted");
+				
+		//	} commented out while
+				
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -129,26 +135,40 @@ public class VONAPP_0003_smoke_test_validation extends VONAPP_0003_smoke_test_va
 		
 	}
 
-	private TestObject document_eBenefitsHome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public void printTableData(TestObject table) {
 
-	public void ValidateIfEnabled(TestObject objParent, String objUnderTest){
-		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest));
-		GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
-		//oLink.click();
-		String ActValue = oLink.getProperty(".disabled").toString();
-		objUnderTest = objUnderTest.replaceAll(" ", "");
-		vpManual("ValidateIfEnabled_"+objUnderTest, "false", ActValue).performTest();
-		oLink.unregister();
-		oLinkProp=null;
-		unregister(oLinkProp);
-		}
-	
-	private IDatapoolIterator getDataPoolObj(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+   Enumeration<String> testDataTypes = table.getTestDataTypes().keys();
+   
+	   while (testDataTypes.hasMoreElements()) {
+	      String testDataType = testDataTypes.nextElement();
+	      System.out.println(testDataType);
+	      ITestData iData = table.getTestData(testDataType);
+	      if (iData instanceof ITestDataTable) {
+	         ITestDataTable iTableData = (ITestDataTable) table
+	                                    .getTestData(testDataType);
+	         int rows = iTableData.getRowCount();
+	         int cols = iTableData.getColumnCount();
+	         for (int col = 0; col < cols; col++) {
+	            System.out.print(iTableData.getColumnHeader(col));
+	            System.out.print("\t\t");
+	         }
+	         System.out.print("\n");
+	         for (int row = 0; row < rows; row++) {
+	            for (int col = 0; col < cols; col++) {
+	               System.out.print(iTableData.getCell(row, col));
+	               System.out.print("\t\t");
+	            }
+	            System.out.print("\n\n");
+	         }
+	         System.out.print("\n");
+	       } else if ( iData instanceof ITestDataText ) {
+	          ITestDataText iText = (ITestDataText) iData;
+	          String text = iText.getText();
+	    System.out.println(text + "\n\n" );
+	 }
+	    }
 }
+}
+
+
 

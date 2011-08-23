@@ -7,7 +7,7 @@
 // file will be lost when automatically updated.
 
 package resources.TestScripts;
-
+import FuncLib.HelpUtil;
 import com.rational.test.ft.object.interfaces.*;
 import com.rational.test.ft.object.interfaces.SAP.*;
 import com.rational.test.ft.object.interfaces.WPF.*;
@@ -20,46 +20,15 @@ import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.ibm.rational.test.ft.object.interfaces.sapwebportal.*;
 /**
  * Script Name   : <b>VONAPP_0003_smoke_test_validation</b><br>
- * Generated     : <b>2011/08/18 9:41:29 AM</b><br>
+ * Generated     : <b>2011/08/21 12:42:16 PM</b><br>
  * Description   : Helper class for script<br>
  * Original Host : Windows XP x86 5.1 build 2600 Service Pack 3 <br>
  * 
- * @since  August 18, 2011
+ * @since  August 21, 2011
  * @author Bhavna Vyas
  */
-public abstract class VONAPP_0003_smoke_test_validationHelper extends RationalTestScript
+public abstract class VONAPP_0003_smoke_test_validationHelper extends FuncLib.HelpUtil
 {
-	/**
-	 * ManageDependentsVONAPPII: with default state.
-	 *		.text : Manage Dependents (VONAPP II)
-	 * 		.id : 
-	 * 		.href : javascript:bea.wlp.disc.xie._Service.update('https://test.eauth.va.gov/ebenefits ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 0
-	 */
-	public GuiTestObject link_manageDependentsVONAPPII() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_manageDependentsVONAPPII"));
-	}
-	/**
-	 * ManageDependentsVONAPPII: with specific test context and state.
-	 *		.text : Manage Dependents (VONAPP II)
-	 * 		.id : 
-	 * 		.href : javascript:bea.wlp.disc.xie._Service.update('https://test.eauth.va.gov/ebenefits ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 0
-	 */
-	public GuiTestObject link_manageDependentsVONAPPII(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_manageDependentsVONAPPII"), anchor, flags);
-	}
-	
 	
 
 	protected VONAPP_0003_smoke_test_validationHelper()

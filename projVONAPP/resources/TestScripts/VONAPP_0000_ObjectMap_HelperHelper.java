@@ -20,12 +20,12 @@ import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.ibm.rational.test.ft.object.interfaces.sapwebportal.*;
 /**
  * Script Name   : <b>VONAPP_0000_ObjectMap_Helper</b><br>
- * Generated     : <b>2011/08/16 2:22:55 PM</b><br>
+ * Generated     : <b>2011/08/22 2:36:56 PM</b><br>
  * Description   : Helper class for script<br>
  * Original Host : Windows XP x86 5.1 build 2600 Service Pack 3 <br>
  * 
- * @since  August 16, 2011
- * @author 281MGOTT
+ * @since  August 22, 2011
+ * @author Bhavna Vyas
  */
 public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScript
 {
@@ -112,6 +112,192 @@ public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScr
 	{
 		return new DocumentTestObject(
                         getMappedTestObject("document_eBenefitsHome"), anchor, flags);
+	}
+	
+	/**
+	 * contactTheVA: with default state.
+	 *		.text : contact the VA
+	 * 		.id : 
+	 * 		.href : RegularExpression(https://www\.ebenefits\.va\.gov/ebenefits-portal/ebenefits\.po ...
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 2
+	 */
+	public GuiTestObject link_ContactTheVA() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_ContactTheVA"));
+	}
+	/**
+	 * contactTheVA: with specific test context and state.
+	 *		.text : contact the VA
+	 * 		.id : 
+	 * 		.href : RegularExpression(https://www\.ebenefits\.va\.gov/ebenefits-portal/ebenefits\.po ...
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 2
+	 */
+	public GuiTestObject link_ContactTheVA(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_ContactTheVA"), anchor, flags);
+	}
+	
+	/**
+	 * Continue: with default state.
+	 *		.text : Continue
+	 * 		.id : 
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do?execution=e1s1&_eventId_continueO ...
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 6
+	 */
+	public GuiTestObject link_Continue() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_Continue"));
+	}
+	/**
+	 * Continue: with specific test context and state.
+	 *		.text : Continue
+	 * 		.id : 
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do?execution=e1s1&_eventId_continueO ...
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 6
+	 */
+	public GuiTestObject link_Continue(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_Continue"), anchor, flags);
+	}
+	
+	/**
+	 * DeleteMANAGEDEPENDENTSCreatedAug172011: with default state.
+	 *		.text : Delete MANAGEDEPENDENTS Created Aug 17, 2011
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do?execution=e1s1&_eventId_deleteOpe ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 7
+	 */
+	public GuiTestObject link_Delete() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_Delete"));
+	}
+	/**
+	 * DeleteMANAGEDEPENDENTSCreatedAug172011: with specific test context and state.
+	 *		.text : Delete MANAGEDEPENDENTS Created Aug 17, 2011
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do?execution=e1s1&_eventId_deleteOpe ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 7
+	 */
+	public GuiTestObject link_Delete(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_Delete"), anchor, flags);
+	}
+	
+	/**
+	 * Help: with default state.
+	 *		.text : Help
+	 * 		.href : https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 29
+	 */
+	public GuiTestObject link_Help() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_Help"));
+	}
+	/**
+	 * Help: with specific test context and state.
+	 *		.text : Help
+	 * 		.href : https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 29
+	 */
+	public GuiTestObject link_Help(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_Help"), anchor, flags);
+	}
+	
+	/**
+	 * ManageDependents: with default state.
+	 *		.text : Manage Dependents
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do?execution=e1s1&_eventId_continueO ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 5
+	 */
+	public GuiTestObject link_ManageDependents() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_ManageDependents"));
+	}
+	/**
+	 * ManageDependents: with specific test context and state.
+	 *		.text : Manage Dependents
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do?execution=e1s1&_eventId_continueO ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 5
+	 */
+	public GuiTestObject link_ManageDependents(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_ManageDependents"), anchor, flags);
+	}
+	
+	/**
+	 * ApplicationType: with default state.
+	 *		.text : Application Type
+	 * 		.id : 
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do;VNP_JSESSIONID=5T5ZTNlpZXQ9KkZvq1 ...
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject link_applicationType() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_applicationType"));
+	}
+	/**
+	 * ApplicationType: with specific test context and state.
+	 *		.text : Application Type
+	 * 		.id : 
+	 * 		.href : https://test.eauth.va.gov/VONAPP2/dashboard.do;VNP_JSESSIONID=5T5ZTNlpZXQ9KkZvq1 ...
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject link_applicationType(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("link_applicationType"), anchor, flags);
 	}
 	
 	/**
@@ -303,8 +489,8 @@ public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScr
 	/**
 	 * MyEBenefits: with default state.
 	 *		.text : My eBenefits
+	 * 		.href : RegularExpression(https://.*va\.gov/ebenefits-portal.*)
 	 * 		.id : 
-	 * 		.href : https://test.eauth.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr=fal ...
 	 * 		.title : 
 	 * 		.class : Html.A
 	 * 		.name : 
@@ -318,8 +504,8 @@ public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScr
 	/**
 	 * MyEBenefits: with specific test context and state.
 	 *		.text : My eBenefits
+	 * 		.href : RegularExpression(https://.*va\.gov/ebenefits-portal.*)
 	 * 		.id : 
-	 * 		.href : https://test.eauth.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr=fal ...
 	 * 		.title : 
 	 * 		.class : Html.A
 	 * 		.name : 
@@ -365,8 +551,8 @@ public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScr
 	/**
 	 * VeteransOnlineApplicationVONAPPDirectConnect: with default state.
 	 *		.text : Veterans Online Application (VONAPP) Direct Connect
-	 * 		.id : 
 	 * 		.href : https://test.eauth.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr=fal ...
+	 * 		.id : 
 	 * 		.title : 
 	 * 		.class : Html.A
 	 * 		.name : 
@@ -380,8 +566,8 @@ public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScr
 	/**
 	 * VeteransOnlineApplicationVONAPPDirectConnect: with specific test context and state.
 	 *		.text : Veterans Online Application (VONAPP) Direct Connect
-	 * 		.id : 
 	 * 		.href : https://test.eauth.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr=fal ...
+	 * 		.id : 
 	 * 		.title : 
 	 * 		.class : Html.A
 	 * 		.name : 
@@ -391,6 +577,91 @@ public abstract class VONAPP_0000_ObjectMap_HelperHelper extends RationalTestScr
 	{
 		return new GuiTestObject(
                         getMappedTestObject("link_veteransOnlineApplication"), anchor, flags);
+	}
+	
+	/**
+	 * ManageDependentsVONAPPII: with default state.
+	 *		.text : Manage Dependents (VONAPP II)
+	 * 		.href : javascript:bea.wlp.disc.xie._Service.update('https://test.eauth.va.gov/ebenefits ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject tab_ManageDependentsVONAPPII() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("tab_ManageDependentsVONAPPII"));
+	}
+	/**
+	 * ManageDependentsVONAPPII: with specific test context and state.
+	 *		.text : Manage Dependents (VONAPP II)
+	 * 		.href : javascript:bea.wlp.disc.xie._Service.update('https://test.eauth.va.gov/ebenefits ...
+	 * 		.id : 
+	 * 		.title : 
+	 * 		.class : Html.A
+	 * 		.name : 
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject tab_ManageDependentsVONAPPII(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("tab_ManageDependentsVONAPPII"), anchor, flags);
+	}
+	
+	/**
+	 * ApplicationTypeCreatedLastUpdatedLastOpenedExpires: with default state.
+	 *		.id : 
+	 * 		.title : 
+	 * 		.class : Html.TABLE
+	 * 		.caption : 
+	 * 		.classIndex : 0
+	 */
+	public StatelessGuiSubitemTestObject table_OpenApplications() 
+	{
+		return new StatelessGuiSubitemTestObject(
+                        getMappedTestObject("table_OpenApplications"));
+	}
+	/**
+	 * ApplicationTypeCreatedLastUpdatedLastOpenedExpires: with specific test context and state.
+	 *		.id : 
+	 * 		.title : 
+	 * 		.class : Html.TABLE
+	 * 		.caption : 
+	 * 		.classIndex : 0
+	 */
+	public StatelessGuiSubitemTestObject table_OpenApplications(TestObject anchor, long flags) 
+	{
+		return new StatelessGuiSubitemTestObject(
+                        getMappedTestObject("table_OpenApplications"), anchor, flags);
+	}
+	
+	/**
+	 * ApplicationTypeCreatedLastUpdatedExpiresSubmitted: with default state.
+	 *		.id : 
+	 * 		.title : 
+	 * 		.class : Html.TABLE
+	 * 		.caption : 
+	 * 		.classIndex : 1
+	 */
+	public StatelessGuiSubitemTestObject table_SubmittedApplications() 
+	{
+		return new StatelessGuiSubitemTestObject(
+                        getMappedTestObject("table_SubmittedApplications"));
+	}
+	/**
+	 * ApplicationTypeCreatedLastUpdatedExpiresSubmitted: with specific test context and state.
+	 *		.id : 
+	 * 		.title : 
+	 * 		.class : Html.TABLE
+	 * 		.caption : 
+	 * 		.classIndex : 1
+	 */
+	public StatelessGuiSubitemTestObject table_SubmittedApplications(TestObject anchor, long flags) 
+	{
+		return new StatelessGuiSubitemTestObject(
+                        getMappedTestObject("table_SubmittedApplications"), anchor, flags);
 	}
 	
 	/**
