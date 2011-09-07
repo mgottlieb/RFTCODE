@@ -20,11 +20,11 @@ import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.ibm.rational.test.ft.object.interfaces.sapwebportal.*;
 /**
  * Script Name   : <b>EB_0000_ObjectMap_Helper</b><br>
- * Generated     : <b>2011/08/23 8:56:35 AM</b><br>
+ * Generated     : <b>2011/08/25 12:39:54 PM</b><br>
  * Description   : Helper class for script<br>
  * Original Host : Windows XP x86 5.1 build 2600 Service Pack 3 <br>
  * 
- * @since  August 23, 2011
+ * @since  August 25, 2011
  * @author 281MGOTT
  */
 public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil

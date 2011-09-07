@@ -2,13 +2,24 @@ package FuncLib;
 
 import org.eclipse.hyades.execution.runtime.datapool.IDatapool;
 import org.eclipse.hyades.execution.runtime.datapool.IDatapoolIterator;
+import java.io.IOException;
+import com.rational.test.ft.UnsupportedActionException;
 import com.rational.test.ft.script.RationalTestScript;
 import com.rational.test.ft.script.ITestObjectMethodState; 
+import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.rational.test.ft.datapool.DatapoolUtilities;
+import com.rational.test.ft.exceptions.TestObjectMethodExceptionHandler;
 import com.rational.test.ft.object.interfaces.*;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File; 
+import javax.imageio.ImageIO;
+
 //import com.rational.test.ft.object.interfaces.TopLevelTestObject;
 /**
- * Description   : Super class for script helper
+	* Description   : Super class for script helper
  * 
  * @author imcva
  * @since  August 01, 2011
@@ -49,19 +60,24 @@ public abstract class HelpUtil extends RationalTestScript
 	                       {
 	                           // A top-level HtmlDialog is found.
 	                    	   if ((topObjects[j].getProperty(".caption").equals("Security Alert")) || (topObjects[j].getProperty(".caption").equals("Security Information"))){
-	                    		   logWarning("HtmlScript.onObjectNotFound - dismissing Security Alert dialog.");
-	                    		   System.out.println("Html.Dialog");
+	                    		   //logWarning("HtmlScript.onObjectNotFound - dismissing Security Alert dialog.");
+	                    		   System.out.println("Html.Dialog."+topObjects[j].getProperty(".caption"));
 		                           try
 		                           {
 		                               dismissedAWindow = true;
 		                               //((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
-		                               ((TopLevelTestObject)topObjects[j]).inputChars("Y");
+		                               //while(topObjects[j].exists()){
+		                            	   ((TopLevelTestObject)topObjects[j]).inputChars("Y");
+		                            	   System.out.println("SecurityInfo");
+		                            	 //  sleep(3.0);
+		                               //}
+		                               
 		                               //testObjectMethodState.findObjectAgain();
 		                           }
 		                           catch(RuntimeException e) {}
 	                    	   } else if (topObjects[j].getProperty(".caption").equals("Security Warning")){
-	                    		   logWarning("HtmlScript.onObjectNotFound - dismissing Security Warning dialog.");
-	                    		   System.out.println("Html.Dialog");
+	                    		   //logWarning("HtmlScript.onObjectNotFound - dismissing Security Warning dialog.");
+	                    		   System.out.println("Html.Dialog."+topObjects[j].getProperty(".caption"));
 		                           try
 		                           {
 		                               dismissedAWindow = true;
@@ -69,9 +85,9 @@ public abstract class HelpUtil extends RationalTestScript
 		                               sleep(2.0);
 		                               ((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
 		                               sleep(15.0);
-		                               while(topObjects[j].exists()){
+		                               while(topObjects[j].getProperty(".caption").equals("Security Warning")){
 		                            	   ((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
-		                            	   sleep(5.0);
+		                            	   //sleep(3.0);
 		                               }
 		                               //((TopLevelTestObject)topObjects[j]).inputChars("Y");
 		                               //testObjectMethodState.findObjectAgain();
@@ -84,7 +100,7 @@ public abstract class HelpUtil extends RationalTestScript
 	                       {
 	                           // A top-level HtmlDialog is found.
 	                    	   //if (topObjects[j].getProperty(".caption").equals("Certificate Error: Navigation Blocked")){
-	                    		   logWarning("HtmlScript.onObjectNotFound - dismissing Certification Error.");
+	                    		   //logWarning("HtmlScript.onObjectNotFound - dismissing Certification Error.");
 		                           try
 		                           {
 		                        	   dismissedAWindow = true;
@@ -117,21 +133,46 @@ public abstract class HelpUtil extends RationalTestScript
 	   }
 	   else
 	   {
-	       logWarning("HtmlScript.onObjectNotFound; no Html Dialog to dismiss");
+	       //logWarning("HtmlScript.onObjectNotFound; no Html Dialog to dismiss");
 	   }
 	}
 //########################################################################################
 	public void closeBrowserAny() 
-	{
-		IWindow[] wins = getTopWindows(); 
-		for (int n = 0; n < wins.length; ++n) 
-		{ 
-			if (wins[n].getWindowClassName().equals("IEFrame")) 
-				{ 
+	{	
+		try {
+			DomainTestObject domains[] = getDomains();
+			for (int i = 0; i < domains.length; ++i){
+				TestObject[] topObjects = domains[i].getTopObjects();
+				if (topObjects != null){
+					for (int j = 0; j < topObjects.length; ++j){
+						if (topObjects[j].getProperty(".class").equals("Html.Dialog")){
+							((TopLevelTestObject)topObjects[j]).close();
+						}
+					}
+				}
+			}
+			IWindow[] wins = getTopWindows(); 
+			for (int n = 0; n < wins.length; ++n){ 
+				if (wins[n].getWindowClassName().equals("IEFrame")){ 
 					wins[n].close(); 
 				}
-		} 
+			}	
+			String os = System.getProperty("os.name");
+			if (os.contains("Windows")) {
+				Runtime.getRuntime().exec("taskkill /F /IM iexplorer.exe");
+				Runtime.getRuntime().exec("taskkill /F /IM EXCEL.EXE");
+			} else {
+				// Assuming a non Windows OS will be some version of Unix, Linux, or Mac
+				Runtime.getRuntime().exec("kill `ps -ef | grep -i firefox | grep -v grep | awk '{print $2}'`");
+				Runtime.getRuntime().exec("kill `ps -ef | grep -i chrome | grep -v grep | awk '{print $2}'`");
+				Runtime.getRuntime().exec("kill `ps -ef | grep -i safari | grep -v grep | awk '{print $2}'`");
+			}
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
 	}
+//########################################################################################	
 //########################################################################################	
 	public DomainTestObject getDomainTestObj(String DomainName){
 		DomainTestObject [] DomainColl = getDomains();
@@ -146,23 +187,33 @@ public abstract class HelpUtil extends RationalTestScript
 	}
 //########################################################################################	
 	public void ValidateIfEnabled(TestObject objParent, String objUnderTest){
-		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest));
-		GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
-		//oLink.click();
+		try {
+		System.out.println(objUnderTest);
+		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest.trim()));
+		GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
 		String ActValue = oLink.getProperty(".disabled").toString();
-		objUnderTest = objUnderTest.replaceAll(" ", "");
-		String strPattern = "[^A-Z]";
-		objUnderTest = objUnderTest.replaceAll(strPattern, "");
-		vpManual("ValidateIfEnabled_"+objUnderTest, "false", ActValue).performTest();
-		/*if (ActValue == "false"){
-			logInfo("On window " + objParent.getProperty(".text") + ", object "+objUnderTest+" is Enabled.");
+		//objUnderTest = objUnderTest.replaceAll(" ", "");
+		//String strPattern = "[^a-zA-Z]";
+		//objUnderTest = objUnderTest.replaceAll(strPattern, "");
+		//vpManual("ValidateIfEnabled_"+objUnderTest, "false", ActValue).performTest();
+		if (ActValue == "false"){
+			logTestResult("On window <<"+objParent.getProperty(".title") + ">>, object <<"+objUnderTest+">> is Enabled.", true, "VP_"+objUnderTest);
+			printScreen("T:\\eBenefits\\IV&V_Team\\RFT\\projEBenefits_logs\\TestScripts.EB_0002_Smoke_Validation\\Image001.jpg");
 		} else {
-			logError("On window " + objParent.getProperty(".text") + ", object "+objUnderTest+" is Disabled.");
-		}*/
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, object <<"+objUnderTest+">> is Disabled.", false, "VP_"+objUnderTest);
+			printScreen("T:\\eBenefits\\IV&V_Team\\RFT\\projEBenefits_logs\\TestScripts.EB_0002_Smoke_Validation\\Image001.jpg");
+		
+		}
 		oLink.unregister();
 		oLinkProp=null;
 		unregister(oLinkProp);
+		}
+		catch(Exception e){
+			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
+			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+		}
 	}
+		
 
 //########################################################################################
 	public IDatapoolIterator getDataPoolObj(String filePath){
@@ -205,10 +256,20 @@ public abstract class HelpUtil extends RationalTestScript
 	}
 	//########################################################################################	
 	public void clickLink(TestObject objParent, String objUnderTest) {
-		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest));
-		GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
-		oLink.click();
-		oLink.unregister();
+		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest.trim()));
+		if (objUnderTest.equals("Apply for Benefits")||objUnderTest.equals("View my Status")
+				||objUnderTest.equals("Access My Documents")||objUnderTest.equals("Browse Benefits Links")){
+			GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
+			oLink.click();
+			oLink.unregister();
+		}
+		else {
+			GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
+			oLink.click();
+			oLink.unregister();
+		}
+		
+		
 		oLinkProp=null;
 		unregister(oLinkProp);
 		
@@ -224,22 +285,83 @@ public abstract class HelpUtil extends RationalTestScript
 			app.unregister();
 	}
 	//########################################################################################	
-	public void ValidateText(TestObject objParent, String objUnderTest, String expValue){
-		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.DIV",".text",objUnderTest));
-		GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
+	public void ValidateText(TestObject objParent, String objUnderTest, String ActValue, String expValue){
+		//TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.DIV",".text",objUnderTest));
+		//GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
 		//oLink.click();
-		String ActValue = oLink.getProperty(".text").toString();
-		objUnderTest = objUnderTest.replaceAll(" ", "");
-		vpManual("ValidateLabelText_"+objUnderTest, expValue, ActValue).performTest();
-		/*if (ActValue == "false"){
-			logInfo("On window " + objParent.getProperty(".text") + ", object "+objUnderTest+" is Enabled.");
+		//String ActValue = oLink.getProperty(".text").toString();
+		//objUnderTest = objUnderTest.replaceAll(" ", "");
+		//vpManual("ValidateLabelText_"+objUnderTest, expValue, ActValue).performTest();
+		if (ActValue.equals(expValue)){
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, for object under test <<"+objUnderTest+">>, corresponding '.text' property actual value <<"+ActValue+">> matched expected value <<"+expValue+">>.", true,"VP_"+objUnderTest);
+			
 		} else {
-			logError("On window " + objParent.getProperty(".text") + ", object "+objUnderTest+" is Disabled.");
-		}*/
-		oLink.unregister();
-		oLinkProp=null;
-		unregister(oLinkProp);
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, for object under test <<"+objUnderTest+">>, corresponding '.text' property actual value <<"+ActValue+">> DIDNOT match expected value <<"+expValue+">>.", false, "VP_"+objUnderTest);
+			
+		}
+		//oLink.unregister();
+		//oLinkProp=null;
+		//unregister(oLinkProp);
 	}
+	//########################################################################################
+	@Override
+	public void onAmbiguousRecognition(
+			ITestObjectMethodState testObjectMethodState, TestObject[] choices,
+			int[] scores) {
+		// TODO Auto-generated method stub
+		//super.onAmbiguousRecognition(testObjectMethodState, choices, scores);
+		testObjectMethodState.setReturnValue(new Integer(0));
+	}
+	@Override
+	public boolean onCallScriptException(RuntimeException e) {
+		return false;
+		// TODO Auto-generated method stub
+		//return super.onCallScriptException(e);
+		
+	}
+	@Override
+	public void onSubitemNotFound(ITestObjectMethodState testObjectMethodState,
+			TestObject foundObject, String subitemDescription) {
+		// TODO Auto-generated method stub
+		//super.onSubitemNotFound(testObjectMethodState, foundObject, subitemDescription);
+		testObjectMethodState.setReturnValue(new Integer(0));
+	}
+	@Override
+	public void onTestObjectMethodException(
+			ITestObjectMethodState testObjectMethodState, TestObject testObject) {
+		// TODO Auto-generated method stub
+		//super.onTestObjectMethodException(testObjectMethodState, testObject);
+		testObjectMethodState.setReturnValue(new Integer(0));
+	}
+	@Override
+	public boolean onUnhandledException(Throwable e) {
+		// TODO Auto-generated method stub
+		//return super.onUnhandledException(e);
+		logInfo(e.getMessage());
+	
+		
+		
+		
+		return false;
+	}
+	@Override
+	public void onVpFailure(IFtVerificationPoint vp) {
+		// TODO Auto-generated method stub
+		//super.onVpFailure(vp);
+		
+	}
+//#######################################################################################
+	public void printScreen(String filename) {
+		try {
+				Robot robot = new Robot();
+		 		BufferedImage screenShot = robot.createScreenCapture
+				(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+				ImageIO.write(screenShot, "JPG", new File(filename));
+			} catch (Exception e) {
+				System.err.println("Unhandled Exception :  " + e);
+				e.printStackTrace();
+			}
+		}
 
 
 }

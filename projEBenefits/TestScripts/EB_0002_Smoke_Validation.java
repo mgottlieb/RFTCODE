@@ -40,6 +40,12 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 		 * Make sure there is testConfig.properties saved at config folder.
 		 */
 		Properties properties = new Properties();
+		setOption(IOptionName.BRING_UP_LOGVIEWER, false);
+		setOption(IOptionName.LOG_APPLICATION_GUI_ACTION, false);
+		setOption(IOptionName.LOG_EXCEPTION_SNAPSHOT, true);
+		setOption(IOptionName.LOG_FORMAT, "xml");
+
+
 		try {
 			properties.load(new FileInputStream("..\\projEBenefits\\Config\\testConfig.txt"));
 			//Initiate Shared Object Map here. 
@@ -47,6 +53,7 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 					
 			/**closeBrowserAny(): close all existing browsers*/
 			closeBrowserAny();
+			
 			/**startBrowser(): Open new browser and invoke URL defined in Config.Properties file
 			*/
 			sleep (3.0);
@@ -70,11 +77,46 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			objMap.text_LogInID().setText("jeff.scott");
 			objMap.text_pwd().setText("Imcva@789");
 			objMap.button_logOnsubmit().click();
-			
-			objMap.lbl_welcomeTag().waitForExistence(10.0, 2.0);
+			objMap.lbl_welcomeTag().waitForExistence(5.0, 2.0);
+			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 			String actValue = objMap.lbl_welcomeTag().getProperty(".text").toString();
-			vpManual("ValidateWelcomeLabelText", "Welcome JEFF SCOTT", actValue).performTest();
+			//vpManual("ValidateWelcomeLabelText", "Welcome JEFF SCOTT", actValue).performTest();
+			ValidateText(objMap.document_eBenefitsHome(), "Welcome Tag", actValue.trim(), "Welcome JEFF SCOTT");
 			
+			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"Apply for Benefits");
+			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"View my Status");
+			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"Access My Documents");
+			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"Browse Benefits Links");
+			/**Open and Initialize DataPool.
+			To initialize csv testdata file as corresponding test datapool, uncomment below line(s). 
+			Also, make sure there is a corresponding csv file at TestData folder.
+			csv filename should be same as testscript name. 
+			*/
+			IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\ValidateLinks.csv");
+			String strTemp = "Empty";
+			while(!oDP.dpDone()){
+				if (!(oDP.dpString("TabName").equals(strTemp)))
+				{
+					objMap.document_eBenefitsHome().waitForExistence(20.0, 2.0);
+					clickLink(objMap.document_eBenefitsHome(),oDP.dpString("TabName").trim());
+				}
+				objMap.document_eBenefitsHome().waitForExistence(20.0, 2.0);
+				ValidateIfEnabled(objMap.document_eBenefitsHome(),oDP.dpString("LinkName").trim());
+				strTemp = oDP.dpString("TabName");
+				oDP.dpNext();
+			}
+			
+			//ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Benefits By State");
+			//ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Compensation");
+			//ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Death");
+			
+			
+			/*ValidateIfEnabled(objMap.document_eBenefitsHome(),"Access My Documents");
+			clickLink(objMap.document_eBenefitsHome(),"Access My Documents");
+			
+			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
+			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Browse Benefits Links");
+			clickLink(objMap.document_eBenefitsHome(),"Browse Benefits Links");
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Apply for Benefits");
 			clickLink(objMap.document_eBenefitsHome(),"Apply for Benefits");
 			objMap.document_eBenefitsHome().waitForExistence(15.0, 2.0);
@@ -83,31 +125,19 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Veterans On-Line Applications (VONAPP)");
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Specially Adapted Housing Grant Application & Claim Status");
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Transfer Post 9/11 Education Benefits");
-			
-					
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"View my Status");
 			clickLink(objMap.document_eBenefitsHome(),"View my Status");
-			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
-			//objMap.lbl_welcomeTag().waitForExistence(20.0,2.0);
-			//objMap.button_logout().waitForExistence(6.0, 2.0);
-					
+			*/
 			
-			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Access My Documents");
-			clickLink(objMap.document_eBenefitsHome(),"Access My Documents");
-			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
-			//objMap.lbl_welcomeTag().waitForExistence(20.0,2.0);
-			
-			
+			/*objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Browse Benefits Links");
 			clickLink(objMap.document_eBenefitsHome(),"Browse Benefits Links");
-			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
-			//objMap.lbl_welcomeTag().waitForExistence(20.0,2.0);
-			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Benefits By State");
-			clickLink(objMap.document_eBenefitsHome(),"Benefits By State");
+			
 			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Compensation");
 			clickLink(objMap.document_eBenefitsHome(),"Compensation");
-			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
+			
+			/*objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Death");
 			clickLink(objMap.document_eBenefitsHome(),"Death");
 			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
@@ -127,129 +157,47 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Rate Table");
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Retirement");
 			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Calculator");
-			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Calendar");
+			ValidateIfEnabled(objMap.document_eBenefitsHome(),"Calendar");*/
+			//getObject(objMap.document_eBenefitsHome(), "Apply for Benefits").waitForExistence(30.0,2.0);
+			//getObject(objMap.document_eBenefitsHome(), "Apply for Benefits").click();
+			
+			
 			
 			
 			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 			getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".value", "Logout").waitForExistence(30.0,2.0);
 			getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".value", "Logout").click();
-			
-			
-			
-						
-			//getObject(objMap.document_eBenefitsHome(), "Apply for Benefits").waitForExistence(30.0,2.0);
-			//getObject(objMap.document_eBenefitsHome(), "Apply for Benefits").click();
-			
-			/**Open and Initialize DataPool.
-			To initialize csv testdata file as corresponding test datapool, uncomment below line(s). 
-			Also, make sure there is a corresponding csv file at TestData folder.
-			csv filename should be same as testscript name. 
-			*/
-			/*IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\EB_0002_Smoke_Validation .csv");		
-			while(!oDP.dpDone()){
-				// TODO Insert code here
-				 
-			}
-			*/
+			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		closeBrowserAny();
 	}
 	
 //#################################################################################################################################'
-	public void handleExceptions(){
-		boolean dismissedAWindow = false;
-		   DomainTestObject domains[] = getDomains();
-		   for (int i = 0; i < domains.length; ++i)
-		   {
-		       if (domains[i].getName().equals("Html"))
-		       {
-		           // HTML domain is found.
-		           TestObject[] topObjects = domains[i].getTopObjects();
-		           if (topObjects != null)
-		           {
-		               try
-		               {
-		                   for (int j = 0; j < topObjects.length; ++j)
-		                   {
-		                	   System.out.println("Check1: Unexpected Window Displayed - "+topObjects[j].getProperty(".class"));
-		                       if (topObjects[j].getProperty(".class").equals("Html.Dialog"))
-		                       {
-		                           // A top-level HtmlDialog is found.
-		                    	   if ((topObjects[j].getProperty(".caption").equals("Security Alert")) || (topObjects[j].getProperty(".caption").equals("Security Information"))){
-		                    		   logWarning("HtmlScript.onObjectNotFound - dismissing Security Alert dialog.");
-		                    		   System.out.println("Html.Dialog");
-			                           try
-			                           {
-			                               dismissedAWindow = true;
-			                               //((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
-			                               ((TopLevelTestObject)topObjects[j]).inputChars("Y");
-			                               //testObjectMethodState.findObjectAgain();
-			                           }
-			                           catch(RuntimeException e) {}
-		                    	   } else if (topObjects[j].getProperty(".caption").equals("Security Warning")){
-		                    		   logWarning("HtmlScript.onObjectNotFound - dismissing Security Warning dialog.");
-		                    		   System.out.println("Html.Dialog");
-			                           try
-			                           {
-			                               dismissedAWindow = true;
-			                               ((TopLevelTestObject)topObjects[j]).inputKeys("{right}");
-			                               sleep(2.0);
-			                               ((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
-			                               sleep(15.0);
-			                               while(topObjects[j].exists()){
-			                            	   ((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
-			                            	   sleep(5.0);
-			                               }
-			                               //((TopLevelTestObject)topObjects[j]).inputChars("Y");
-			                               //testObjectMethodState.findObjectAgain();
-			                           }
-			                           catch(RuntimeException e) {}
-		                    	   }
-		                    	   
-		                       }
-		                       else if (topObjects[j].getProperty(".class").equals("Html.HtmlBrowser"))
-		                       {
-		                           // A top-level HtmlDialog is found.
-		                    	   //if (topObjects[j].getProperty(".caption").equals("Certificate Error: Navigation Blocked")){
-		                    		   logWarning("HtmlScript.onObjectNotFound - dismissing Certification Error.");
-			                           try
-			                           {
-			                        	   dismissedAWindow = true;
-			                        	   TestObject[] oLinkProp = ((TopLevelTestObject)topObjects[j]).find(atDescendant(".class","Html.A",".text","Continue to this website (not recommended)."));
-			                       			GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
-			                       			oLink.click();
-			                       			oLink.unregister();
-			                       			oLinkProp=null;
-			                       			unregister(oLinkProp);
-			                       			
-			                           }
-			                           catch(RuntimeException e) {}
-		                    	   //}
-		                       }
-		                   }
-		               }
-		               finally
-		               {
-		                   //unregister all references to top objects
-		                   unregister(topObjects);
-		               }
-		           }
-		                       
-		       }
-		   }
-		   if (dismissedAWindow)
-		   {
-		       //  try again
-		       //testObjectMethodState.findObjectAgain();
-		   }
-		   else
-		   {
-		       logWarning("HtmlScript.onObjectNotFound; no Html Dialog to dismiss");
-		   }
-	}
+	public void ClickTabLink(TestObject objParent, String objTab, String objLink) {
+		
+		objParent.waitForExistence(20.0, 2.0);
+		//ValidateIfEnabled(objParent,objTab);
+		clickLink(objParent,objTab);
+		objParent.waitForExistence(20.0, 2.0);
+		//ValidateIfEnabled(objParent,objLink);
+		clickLink(objParent,objLink);
+		
+		}
+	
+	public void ValidateLinksUnderTab(TestObject objParent, String objTab, String objLink) {
+		
+		
+			
+		objParent.waitForExistence(20.0, 2.0);
+		ValidateIfEnabled(objParent,objLink);
+		clickLink(objParent,objLink);
+		
+		}
+	
+			
 }
 
