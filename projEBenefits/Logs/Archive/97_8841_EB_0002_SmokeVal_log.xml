@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestLog>
+	<Event dpIter="0">
+		<Event Timestamp="07-Sep-2011 06:38:04.749 AM" Type="Script Start" Headline="Script start [TestScripts.EB_0002_Smoke_Validation]" Result="INFORMATION">
+			<Property line_number="1"/>
+			<Property script_iter_count="0"/>
+			<Property script_name="TestScripts.EB_0002_Smoke_Validation"/>
+			<Property script_id="TestScripts.EB_0002_Smoke_Validation.java"/>
+		</Event>
+		<Event Timestamp="07-Sep-2011 06:38:07.952 AM" Type="Application Start" Headline="Start application [https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal]" Result="INFORMATION">
+			<Property name="https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal"/>
+			<Property line_number="59"/>
+			<Property script_name="TestScripts.EB_0002_Smoke_Validation"/>
+			<Property script_id="TestScripts.EB_0002_Smoke_Validation.java"/>
+		</Event>
+		<Event Timestamp="07-Sep-2011 06:52:41.655 AM" Type="General" Headline="CRFCN0535E: Too many exceptions occurred in event handlers while invoking ping on object DocumentTestObject(Name: document_eBenefitsHome, Map: eBenefitsApply). This limit exists to prevent infinite loops when handling an event and restarting the method.  The maximum number of exceptions per method invocation is 3." Result="INFORMATION">
+			<Property script_name="TestScripts.EB_0002_Smoke_Validation"/>
+		</Event>
+		<Event Timestamp="07-Sep-2011 06:52:42.093 AM" Type="General" Headline="TestScripts.EB_0002_Smoke_Validation.testMain had an unhandled exception." Result="FAIL">
+			<Property exception_name="com.rational.test.ft.TestObjectMethodEventException"/>
+			<Property exception_message="CRFCN0535E: Too many exceptions occurred in event handlers while invoking ping on object DocumentTestObject(Name: document_eBenefitsHome, Map: eBenefitsApply). This limit exists to prevent infinite loops when handling an event and restarting the method.  The maximum number of exceptions per method invocation is 3."/>
+			<Property script_name="TestScripts.EB_0002_Smoke_Validation"/>
+			<Property script_id="TestScripts.EB_0002_Smoke_Validation.java"/>
+			<Property line_number="71"/>
+			<Property exception_stack="	at com.rational.test.ft.object.interfaces.ClientTestObject.waitForExistence(ClientTestObject.java:357)
+	at TestScripts.EB_0002_Smoke_Validation.testMain(EB_0002_Smoke_Validation.java:71)
+	at org.eclipse.equinox.internal.app.EclipseAppContainer.callMethodWithException(EclipseAppContainer.java:587)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:198)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1407)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1383)
+	at org.eclipse.core.launcher.Main.main(Main.java:34)
+"/>
+			<Property screen_snapshot="rational_ft_screensnapshot.jpg" image_width="1280" image_height="1001"/>
+		</Event>
+		<Event Timestamp="07-Sep-2011 06:52:42.093 AM" Type="Script End" Headline="Script end [TestScripts.EB_0002_Smoke_Validation]" Result="FAIL">
+			<Property script_name="TestScripts.EB_0002_Smoke_Validation"/>
+			<Property script_id="TestScripts.EB_0002_Smoke_Validation.java"/>
+		</Event>
+	</Event>
+</TestLog>
