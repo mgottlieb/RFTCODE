@@ -186,23 +186,22 @@ public abstract class HelpUtil extends RationalTestScript
 		return strDomain;
 	}
 //########################################################################################	
-	public void ValidateIfEnabled(TestObject objParent, String objUnderTest){
+	public void ValidateIfLinkEnabled(TestObject objParent, String objUnderTest){
 		try {
 		System.out.println(objUnderTest);
 		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest.trim()));
 		GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
 		String ActValue = oLink.getProperty(".disabled").toString();
+	
 		//objUnderTest = objUnderTest.replaceAll(" ", "");
 		//String strPattern = "[^a-zA-Z]";
 		//objUnderTest = objUnderTest.replaceAll(strPattern, "");
 		//vpManual("ValidateIfEnabled_"+objUnderTest, "false", ActValue).performTest();
 		if (ActValue == "false"){
-			logTestResult("On window <<"+objParent.getProperty(".title") + ">>, object <<"+objUnderTest+">> is Enabled.", true, "VP_"+objUnderTest);
-			printScreen("T:\\eBenefits\\IV&V_Team\\RFT\\projEBenefits_logs\\TestScripts.EB_0002_Smoke_Validation\\Image001.jpg");
+			logTestResult("On window <<"+objParent.getProperty(".title") + ">>, link object <<"+objUnderTest+">> is Enabled.", true, "VP_"+objUnderTest);
 		} else {
-			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, object <<"+objUnderTest+">> is Disabled.", false, "VP_"+objUnderTest);
-			printScreen("T:\\eBenefits\\IV&V_Team\\RFT\\projEBenefits_logs\\TestScripts.EB_0002_Smoke_Validation\\Image001.jpg");
-		
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, link object <<"+objUnderTest+">> is Disabled.", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
 		}
 		oLink.unregister();
 		oLinkProp=null;
@@ -213,7 +212,66 @@ public abstract class HelpUtil extends RationalTestScript
 			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
 		}
 	}
+	//########################################################################################	
+	public void ValidateIfCheckBoxEnabled(TestObject objParent, String objUnderTest){
+		try {
+		System.out.println(objUnderTest);
+		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.INPUT.checkbox",".id",objUnderTest.trim()));
+		GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
+		String ActValue = oLink.getProperty(".disabled").toString();
+	
+		//objUnderTest = objUnderTest.replaceAll(" ", "");
+		//String strPattern = "[^a-zA-Z]";
+		//objUnderTest = objUnderTest.replaceAll(strPattern, "");
+		//vpManual("ValidateIfEnabled_"+objUnderTest, "false", ActValue).performTest();
+		if (ActValue == "false"){
+			logTestResult("On window <<"+objParent.getProperty(".title") + ">>, checkbox object <<"+objUnderTest+">> is Enabled.", true, "VP_"+objUnderTest);
+		} else {
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, checkbox object <<"+objUnderTest+">> is Disabled.", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+		}
+		oLink.unregister();
+		oLinkProp=null;
+		unregister(oLinkProp);
+		}
+		catch(Exception e){
+			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
+			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+		}
+	}
+	//########################################################################################	
+	public boolean ValidateCheckBoxState(TestObject objParent, String objUnderTest, String cbState){
+		try {
+		System.out.println(objUnderTest);
+		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.INPUT.checkbox",".id",objUnderTest.trim()));
+		GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
+		String ActValue = oLink.getProperty(".checked").toString();
+		if (ActValue.equals("false")){
+			ActValue = "UnChecked";}
+		else{
+			ActValue = "Checked";
+		}
 		
+		if (ActValue.equalsIgnoreCase(cbState)){
+			logTestResult("On window <<"+objParent.getProperty(".title") + ">>, checkbox object <<"+objUnderTest+">> is "+ActValue+".", true, "VP_"+objUnderTest);
+			oLink.unregister();
+			oLinkProp=null;
+			unregister(oLinkProp);
+			return true;
+		} else {
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, checkbox object <<"+objUnderTest+">> is "+ActValue+". Expected to be "+cbState+".", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+			oLink.unregister();
+			oLinkProp=null;
+			unregister(oLinkProp);
+			return false;}
+		}
+		catch(Exception e){
+			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
+			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+			return false;
+		}
+	}
 
 //########################################################################################
 	public IDatapoolIterator getDataPoolObj(String filePath){

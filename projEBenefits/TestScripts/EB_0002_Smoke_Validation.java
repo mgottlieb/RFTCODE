@@ -58,21 +58,9 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			*/
 			sleep (3.0);
 			startBrowser("Internet Explorer", properties.getProperty("url"));
-			//sleep(30.0);
-			//handleExceptions();
-			
-			
-			/*if (objMap.Dialog_SecurityInfo().exists()){
-				while (objMap.dialog_htmlDialogButtonYes().exists()){
-					objMap.dialog_htmlDialogButtonYes().click();
-					sleep (3.0);
-				}
-			}
-			*/
 			objMap.document_eBenefitsHome().waitForExistence(15.0, 2.0);
 			getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").waitForExistence(30.0,2.0);
 			getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").click();
-			
 			objMap.button_logOnsubmit().waitForExistence(30.0, 2.0);
 			objMap.text_LogInID().setText("jeff.scott");
 			objMap.text_pwd().setText("Imcva@789");
@@ -80,13 +68,9 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			objMap.lbl_welcomeTag().waitForExistence(5.0, 2.0);
 			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
 			String actValue = objMap.lbl_welcomeTag().getProperty(".text").toString();
-			//vpManual("ValidateWelcomeLabelText", "Welcome JEFF SCOTT", actValue).performTest();
 			ValidateText(objMap.document_eBenefitsHome(), "Welcome Tag", actValue.trim(), "Welcome JEFF SCOTT");
 			
-			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"Apply for Benefits");
-			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"View my Status");
-			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"Access My Documents");
-			//ValidateIfEnabled(objMap.document_eBenefitsHome(),"Browse Benefits Links");
+			
 			/**Open and Initialize DataPool.
 			To initialize csv testdata file as corresponding test datapool, uncomment below line(s). 
 			Also, make sure there is a corresponding csv file at TestData folder.
@@ -101,15 +85,10 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 					clickLink(objMap.document_eBenefitsHome(),oDP.dpString("TabName").trim());
 				}
 				objMap.document_eBenefitsHome().waitForExistence(20.0, 2.0);
-				ValidateIfEnabled(objMap.document_eBenefitsHome(),oDP.dpString("LinkName").trim());
+				ValidateIfLinkEnabled(objMap.document_eBenefitsHome(),oDP.dpString("LinkName").trim());
 				strTemp = oDP.dpString("TabName");
 				oDP.dpNext();
 			}
-			
-			//ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Benefits By State");
-			//ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Compensation");
-			//ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Death");
-			
 			
 			/*ValidateIfEnabled(objMap.document_eBenefitsHome(),"Access My Documents");
 			clickLink(objMap.document_eBenefitsHome(),"Access My Documents");
@@ -193,7 +172,7 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 		
 			
 		objParent.waitForExistence(20.0, 2.0);
-		ValidateIfEnabled(objParent,objLink);
+		ValidateIfLinkEnabled(objParent,objLink);
 		clickLink(objParent,objLink);
 		
 		}
