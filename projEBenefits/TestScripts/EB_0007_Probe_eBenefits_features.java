@@ -33,7 +33,7 @@ public class EB_0007_Probe_eBenefits_features extends EB_0007_Probe_eBenefits_fe
 	 * @author imcva
 	 */
 	enum UserLevel {Level1,Level2,Anonymous}
-	public void testMain(Object[] args) 
+	public void testMain(String[] args) 
 	{
 		// TODO Insert code here
 		
@@ -70,24 +70,29 @@ public class EB_0007_Probe_eBenefits_features extends EB_0007_Probe_eBenefits_fe
 		Also, make sure there is a corresponding csv file at TestData folder.
 		csv filename should be same as testscript name. 
 		*/
-		IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\Level_LoginPwd.csv");		
-		while(!oDP.dpDone()){
+		//IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\Level_LoginPwd.csv");		
+		//while(!oDP.dpDone()){
 			// TODO Insert code here
-			if (!objMap.lbl_welcomeTag().exists()){
-				getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").waitForExistence(30.0,2.0);
-				getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").click();
-				objMap.button_logOnsubmit().waitForExistence(30.0, 2.0);
-				objMap.text_LogInID().setText(oDP.dpString("UserID").trim());
-				objMap.text_pwd().setText(oDP.dpString("Password").trim());
-				objMap.button_logOnsubmit().click();
-				objMap.lbl_welcomeTag().waitForExistence(15.0, 2.0);
-				objMap.document_eBenefitsHome().waitForExistence(15.0, 2.0);
-				ValidateLblText(objMap.document_eBenefitsHome(), objMap.lbl_welcomeTag(), oDP.dpString("valWelcomeLabel").trim());
-			}
-			
-			
-			oDP.dpNext();
+		if (!objMap.lbl_welcomeTag().exists()){
+			getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").waitForExistence(30.0,2.0);
+			getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").click();
+			objMap.button_logOnsubmit().waitForExistence(30.0, 2.0);
+			//objMap.text_LogInID().setText(oDP.dpString("UserID").trim());
+			objMap.text_LogInID().setText("jeff.scott");
+			objMap.text_pwd().setText("Imcva@789");
+			objMap.button_logOnsubmit().click();
+			objMap.lbl_welcomeTag().waitForExistence(15.0, 2.0);
+			objMap.document_eBenefitsHome().waitForExistence(15.0, 2.0);
+			ValidateLblText(objMap.document_eBenefitsHome(), objMap.lbl_welcomeTag(), "Welcome JEFF SCOTT");
 		}
+		//oDP.dpNext();
+	//}
+		Object[] objLevel = new Object[1];
+		objLevel[0] = new String("Level2");
+		callScript("EB_0003_Validate_Benefit_Links", objLevel);
+		callScript("EB_0004_Validate_AccessForBenefit_Links", objLevel);
+		callScript("EB_0005_Validate_ViewMyBenefits_Links", objLevel);
+		callScript("EB_0006_Validate_AccessMyDocs_Links", objLevel);
 			
 	}
 }
