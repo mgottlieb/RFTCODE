@@ -20,34 +20,44 @@ import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.ibm.rational.test.ft.object.interfaces.sapwebportal.*;
 /**
  * Script Name   : <b>EB_0000_ObjectMap_Helper</b><br>
- * Generated     : <b>2011/08/25 12:39:54 PM</b><br>
+ * Generated     : <b>2011/09/20 2:03:21 PM</b><br>
  * Description   : Helper class for script<br>
  * Original Host : Windows XP x86 5.1 build 2600 Service Pack 3 <br>
  * 
- * @since  August 25, 2011
- * @author 281MGOTT
+ * @since  September 20, 2011
+ * @author imcva
  */
 public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil
 {
 	/**
-	 * HtmlDialog: with default state.
-	 *		.class : Html.Dialog
-	 * 		.caption : Security Information
+	 * Calculatesubmit: with default state.
+	 *		.id : 
+	 * 		.type : submit
+	 * 		.value : Calculate
+	 * 		.title : Calculate
+	 * 		.class : Html.INPUT.submit
+	 * 		.name : action
+	 * 		.classIndex : 0
 	 */
-	public TopLevelTestObject Dialog_SecurityInfo() 
+	public GuiTestObject button_calculatesubmit() 
 	{
-		return new TopLevelTestObject(
-                        getMappedTestObject("Dialog_SecurityInfo"));
+		return new GuiTestObject(
+                        getMappedTestObject("button_calculatesubmit"));
 	}
 	/**
-	 * HtmlDialog: with specific test context and state.
-	 *		.class : Html.Dialog
-	 * 		.caption : Security Information
+	 * Calculatesubmit: with specific test context and state.
+	 *		.id : 
+	 * 		.type : submit
+	 * 		.value : Calculate
+	 * 		.title : Calculate
+	 * 		.class : Html.INPUT.submit
+	 * 		.name : action
+	 * 		.classIndex : 0
 	 */
-	public TopLevelTestObject Dialog_SecurityInfo(TestObject anchor, long flags) 
+	public GuiTestObject button_calculatesubmit(TestObject anchor, long flags) 
 	{
-		return new TopLevelTestObject(
-                        getMappedTestObject("Dialog_SecurityInfo"), anchor, flags);
+		return new GuiTestObject(
+                        getMappedTestObject("button_calculatesubmit"), anchor, flags);
 	}
 	
 	/**
@@ -144,26 +154,203 @@ public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil
 	}
 	
 	/**
-	 * HtmlDialogButtonYes: with default state.
-	 *		.text : &Yes
-	 * 		.class : Html.DialogButton
+	 * Resetbutton: with default state.
+	 *		.id : 
+	 * 		.type : button
+	 * 		.value : Reset
+	 * 		.title : reset
+	 * 		.class : Html.INPUT.button
+	 * 		.name : 
 	 * 		.classIndex : 0
 	 */
-	public GuiTestObject dialog_htmlDialogButtonYes() 
+	public GuiTestObject button_resetbutton() 
 	{
 		return new GuiTestObject(
-                        getMappedTestObject("dialog_htmlDialogButtonYes"));
+                        getMappedTestObject("button_resetbutton"));
 	}
 	/**
-	 * HtmlDialogButtonYes: with specific test context and state.
-	 *		.text : &Yes
-	 * 		.class : Html.DialogButton
+	 * Resetbutton: with specific test context and state.
+	 *		.id : 
+	 * 		.type : button
+	 * 		.value : Reset
+	 * 		.title : reset
+	 * 		.class : Html.INPUT.button
+	 * 		.name : 
 	 * 		.classIndex : 0
 	 */
-	public GuiTestObject dialog_htmlDialogButtonYes(TestObject anchor, long flags) 
+	public GuiTestObject button_resetbutton(TestObject anchor, long flags) 
 	{
 		return new GuiTestObject(
-                        getMappedTestObject("dialog_htmlDialogButtonYes"), anchor, flags);
+                        getMappedTestObject("button_resetbutton"), anchor, flags);
+	}
+	
+	/**
+	 * DMDCErrorPage: with default state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_CivilianInfo_dmdcErrorPage() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_CivilianInfo_dmdcErrorPage"));
+	}
+	/**
+	 * DMDCErrorPage: with specific test context and state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_CivilianInfo_dmdcErrorPage(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_CivilianInfo_dmdcErrorPage"), anchor, flags);
+	}
+	
+	/**
+	 * DMDCErrorPage: with default state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : https://test.eauth.va.gov/ebenefits-portal/portlets/dmdc/dmdc_v2_giqd_beneficiar ...
+	 */
+	public DocumentTestObject document_DOD_dmdcErrorPage() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_DOD_dmdcErrorPage"));
+	}
+	/**
+	 * DMDCErrorPage: with specific test context and state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : https://test.eauth.va.gov/ebenefits-portal/portlets/dmdc/dmdc_v2_giqd_beneficiar ...
+	 */
+	public DocumentTestObject document_DOD_dmdcErrorPage(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_DOD_dmdcErrorPage"), anchor, flags);
+	}
+	
+	/**
+	 * DMDCErrorPage: with default state.
+	 *		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_MRRI_dmdcErrorPage() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_MRRI_dmdcErrorPage"));
+	}
+	/**
+	 * DMDCErrorPage: with specific test context and state.
+	 *		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_MRRI_dmdcErrorPage(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_MRRI_dmdcErrorPage"), anchor, flags);
+	}
+	
+	/**
+	 * DMDCErrorPage: with default state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_SGLI_dmdcErrorPage() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_SGLI_dmdcErrorPage"));
+	}
+	/**
+	 * DMDCErrorPage: with specific test context and state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_SGLI_dmdcErrorPage(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_SGLI_dmdcErrorPage"), anchor, flags);
+	}
+	
+	/**
+	 * DMDCErrorPage: with default state.
+	 *		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_SMPI_dmdcErrorPage() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_SMPI_dmdcErrorPage"));
+	}
+	/**
+	 * DMDCErrorPage: with specific test context and state.
+	 *		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_SMPI_dmdcErrorPage(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_SMPI_dmdcErrorPage"), anchor, flags);
+	}
+	
+	/**
+	 * AgentOrangeFastTrackClaimsProcessingSystem: with default state.
+	 *		.title : Agent Orange Fast Track Claims Processing System
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : https://www.fasttrack.va.gov/AOFastTrack/help3.do
+	 */
+	public DocumentTestObject document_agentOrangeFastTrackC() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_agentOrangeFastTrackC"));
+	}
+	/**
+	 * AgentOrangeFastTrackClaimsProcessingSystem: with specific test context and state.
+	 *		.title : Agent Orange Fast Track Claims Processing System
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : https://www.fasttrack.va.gov/AOFastTrack/help3.do
+	 */
+	public DocumentTestObject document_agentOrangeFastTrackC(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_agentOrangeFastTrackC"), anchor, flags);
+	}
+	
+	/**
+	 * DMDCErrorPage: with default state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_ccd_dmdcErrorPage() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_ccd_dmdcErrorPage"));
+	}
+	/**
+	 * DMDCErrorPage: with specific test context and state.
+	 *		.text : DMDC Error Page Sorry!! Application is not available.
+	 * 		.title : DMDC Error Page
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https:/.*.va\.gov/ebenefits-portal/portlets/dmdc/.*)
+	 */
+	public DocumentTestObject document_ccd_dmdcErrorPage(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_ccd_dmdcErrorPage"), anchor, flags);
 	}
 	
 	/**
@@ -190,11 +377,333 @@ public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil
 	}
 	
 	/**
-	 * welcome: with default state.
-	 *		.id : welcome
+	 * InternetExplorerCannotDisplayTheWebpage: with default state.
+	 *		.title : Internet Explorer cannot display the webpage
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : res://ieframe.dll/dnserror.htm#https://test.eauth.va.gov/FIM/sps/saml11fed_CSP/s ...
+	 */
+	public DocumentTestObject document_internetExplorerCanno() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_internetExplorerCanno"));
+	}
+	/**
+	 * InternetExplorerCannotDisplayTheWebpage: with specific test context and state.
+	 *		.title : Internet Explorer cannot display the webpage
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : res://ieframe.dll/dnserror.htm#https://test.eauth.va.gov/FIM/sps/saml11fed_CSP/s ...
+	 */
+	public DocumentTestObject document_internetExplorerCanno(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_internetExplorerCanno"), anchor, flags);
+	}
+	
+	/**
+	 * SGLIError: with default state.
+	 *		.title : 
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https://.*\.va\.gov/ebenefits-portal/portlets.*)
+	 */
+	public DocumentTestObject document_sgliError() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_sgliError"));
+	}
+	/**
+	 * SGLIError: with specific test context and state.
+	 *		.title : 
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https://.*\.va\.gov/ebenefits-portal/portlets.*)
+	 */
+	public DocumentTestObject document_sgliError(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_sgliError"), anchor, flags);
+	}
+	
+	/**
+	 * VetEmplSearch: with default state.
+	 *		.title : RegularExpression(.*VA E-Authentication)
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https://www\.va\.gov/EAUTH/.*)
+	 */
+	public DocumentTestObject document_vetEmplSearch() 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_vetEmplSearch"));
+	}
+	/**
+	 * VetEmplSearch: with specific test context and state.
+	 *		.title : RegularExpression(.*VA E-Authentication)
+	 * 		.class : Html.HtmlDocument
+	 * 		.url : RegularExpression(https://www\.va\.gov/EAUTH/.*)
+	 */
+	public DocumentTestObject document_vetEmplSearch(TestObject anchor, long flags) 
+	{
+		return new DocumentTestObject(
+                        getMappedTestObject("document_vetEmplSearch"), anchor, flags);
+	}
+	
+	/**
+	 * CompPensionStError: with default state.
+	 *		.id : RegularExpression(disc.*)
 	 * 		.title : 
 	 * 		.class : Html.DIV
 	 * 		.classIndex : 0
+	 */
+	public GuiTestObject html_compPensionStError() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("html_compPensionStError"));
+	}
+	/**
+	 * CompPensionStError: with specific test context and state.
+	 *		.id : RegularExpression(disc.*)
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject html_compPensionStError(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("html_compPensionStError"), anchor, flags);
+	}
+	
+	/**
+	 * skip: with default state.
+	 *		.text : Specially Adapted Housing Grant Application and Claim Status
+	 * 		.id : skip
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_SplAdaptedHousingGrantAppl() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_SplAdaptedHousingGrantAppl"));
+	}
+	/**
+	 * skip: with specific test context and state.
+	 *		.text : Specially Adapted Housing Grant Application and Claim Status
+	 * 		.id : skip
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_SplAdaptedHousingGrantAppl(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_SplAdaptedHousingGrantAppl"), anchor, flags);
+	}
+	
+	/**
+	 * skip: with default state.
+	 *		.id : skip
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_TransferPost911GIBillEducationBenefits() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_TransferPost911GIBillEducationBenefits"));
+	}
+	/**
+	 * skip: with specific test context and state.
+	 *		.id : skip
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_TransferPost911GIBillEducationBenefits(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_TransferPost911GIBillEducationBenefits"), anchor, flags);
+	}
+	
+	/**
+	 * ErrorAndContact: with default state.
+	 *		.id : main_content
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_VAErrorAndContact() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_VAErrorAndContact"));
+	}
+	/**
+	 * ErrorAndContact: with specific test context and state.
+	 *		.id : main_content
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_VAErrorAndContact(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_VAErrorAndContact"), anchor, flags);
+	}
+	
+	/**
+	 * CompPensionError: with default state.
+	 *		.id : RegularExpression(disc.*)
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_compPensionError() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_compPensionError"));
+	}
+	/**
+	 * CompPensionError: with specific test context and state.
+	 *		.id : RegularExpression(disc.*)
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_compPensionError(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_compPensionError"), anchor, flags);
+	}
+	
+	/**
+	 * DODHealthCareError: with default state.
+	 *		.text : DoD Health Insurance Information
+	 * 		.id : portlet-HCI
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_dodHealthCareError() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_dodHealthCareError"));
+	}
+	/**
+	 * DODHealthCareError: with specific test context and state.
+	 *		.text : DoD Health Insurance Information
+	 * 		.id : portlet-HCI
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_dodHealthCareError(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_dodHealthCareError"), anchor, flags);
+	}
+	
+	/**
+	 * FedIndRecFIRP: with default state.
+	 *		.id : skip
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_fedIndRecFIRP() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_fedIndRecFIRP"));
+	}
+	/**
+	 * FedIndRecFIRP: with specific test context and state.
+	 *		.id : skip
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_fedIndRecFIRP(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_fedIndRecFIRP"), anchor, flags);
+	}
+	
+	/**
+	 * IEPageFailure: with default state.
+	 *		.id : mainTitle
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_iEcannotDisplay() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_iEcannotDisplay"));
+	}
+	/**
+	 * IEPageFailure: with specific test context and state.
+	 *		.id : mainTitle
+	 * 		.title : 
+	 * 		.class : Html.H1
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_iEcannotDisplay(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_iEcannotDisplay"), anchor, flags);
+	}
+	
+	/**
+	 * lblSGLI: with default state.
+	 *		.id : RegularExpression(disc.*)
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_lblSGLI() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_lblSGLI"));
+	}
+	/**
+	 * lblSGLI: with specific test context and state.
+	 *		.id : RegularExpression(disc.*)
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_lblSGLI(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_lblSGLI"), anchor, flags);
+	}
+	
+	/**
+	 * VetEmplSearchPageText: with default state.
+	 *		.id : content-area-template-B
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_vetEmplSearchPageText() 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_vetEmplSearchPageText"));
+	}
+	/**
+	 * VetEmplSearchPageText: with specific test context and state.
+	 *		.id : content-area-template-B
+	 * 		.title : 
+	 * 		.class : Html.DIV
+	 * 		.classIndex : 0
+	 */
+	public GuiTestObject lbl_vetEmplSearchPageText(TestObject anchor, long flags) 
+	{
+		return new GuiTestObject(
+                        getMappedTestObject("lbl_vetEmplSearchPageText"), anchor, flags);
+	}
+	
+	/**
+	 * welcome: with default state.
+	 *		.text : RegularExpression(Welcome.*)
+	 * 		.className : welcome
+	 * 		.class : Html.DIV
 	 */
 	public GuiTestObject lbl_welcomeTag() 
 	{
@@ -203,10 +712,9 @@ public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil
 	}
 	/**
 	 * welcome: with specific test context and state.
-	 *		.id : welcome
-	 * 		.title : 
+	 *		.text : RegularExpression(Welcome.*)
+	 * 		.className : welcome
 	 * 		.class : Html.DIV
-	 * 		.classIndex : 0
 	 */
 	public GuiTestObject lbl_welcomeTag(TestObject anchor, long flags) 
 	{
@@ -215,747 +723,30 @@ public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil
 	}
 	
 	/**
-	 * About: with default state.
-	 *		.text : About
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 1
-	 */
-	public GuiTestObject link_about() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_about"));
-	}
-	/**
-	 * About: with specific test context and state.
-	 *		.text : About
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 1
-	 */
-	public GuiTestObject link_about(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_about"), anchor, flags);
-	}
-	
-	/**
-	 * AboutBenefitsLinks: with default state.
-	 *		.text : About Benefits Links
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
+	 * DiagnoseConnectionProblems: with default state.
+	 *		.text : Diagnose Connection Problems
 	 * 		.title : 
 	 * 		.class : Html.A
 	 * 		.name : 
 	 * 		.classIndex : 0
 	 */
-	public GuiTestObject link_aboutBenefitsLinks() 
+	public GuiTestObject link_diagnoseConnectionProblem() 
 	{
 		return new GuiTestObject(
-                        getMappedTestObject("link_aboutBenefitsLinks"));
+                        getMappedTestObject("link_diagnoseConnectionProblem"));
 	}
 	/**
-	 * AboutBenefitsLinks: with specific test context and state.
-	 *		.text : About Benefits Links
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
+	 * DiagnoseConnectionProblems: with specific test context and state.
+	 *		.text : Diagnose Connection Problems
 	 * 		.title : 
 	 * 		.class : Html.A
 	 * 		.name : 
 	 * 		.classIndex : 0
 	 */
-	public GuiTestObject link_aboutBenefitsLinks(TestObject anchor, long flags) 
+	public GuiTestObject link_diagnoseConnectionProblem(TestObject anchor, long flags) 
 	{
 		return new GuiTestObject(
-                        getMappedTestObject("link_aboutBenefitsLinks"), anchor, flags);
-	}
-	
-	/**
-	 * ApplyForBenefits: with default state.
-	 *		.text : Apply for Benefits
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal;EBEN_JSESSIONID=2 ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 0
-	 */
-	public GuiTestObject link_applyForBenefits() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_applyForBenefits"));
-	}
-	/**
-	 * ApplyForBenefits: with specific test context and state.
-	 *		.text : Apply for Benefits
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal;EBEN_JSESSIONID=2 ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 0
-	 */
-	public GuiTestObject link_applyForBenefits(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_applyForBenefits"), anchor, flags);
-	}
-	
-	/**
-	 * Assistance: with default state.
-	 *		.text : Assistance
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 12
-	 */
-	public GuiTestObject link_assistance() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_assistance"));
-	}
-	/**
-	 * Assistance: with specific test context and state.
-	 *		.text : Assistance
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 12
-	 */
-	public GuiTestObject link_assistance(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_assistance"), anchor, flags);
-	}
-	
-	/**
-	 * BenefitsByState: with default state.
-	 *		.text : Benefits By State
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 1
-	 */
-	public GuiTestObject link_benefitsByState() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_benefitsByState"));
-	}
-	/**
-	 * BenefitsByState: with specific test context and state.
-	 *		.text : Benefits By State
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 1
-	 */
-	public GuiTestObject link_benefitsByState(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_benefitsByState"), anchor, flags);
-	}
-	
-	/**
-	 * BrowseBenefitsLinks: with default state.
-	 *		.text : Browse Benefits Links
-	 * 		.id : 
-	 * 		.href : https://.*.va\.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr=false&_pag ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 3
-	 */
-	public GuiTestObject link_browseBenefitsLinks() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_browseBenefitsLinks"));
-	}
-	/**
-	 * BrowseBenefitsLinks: with specific test context and state.
-	 *		.text : Browse Benefits Links
-	 * 		.id : 
-	 * 		.href : https://.*.va\.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr=false&_pag ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 3
-	 */
-	public GuiTestObject link_browseBenefitsLinks(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_browseBenefitsLinks"), anchor, flags);
-	}
-	
-	/**
-	 * Compensation: with default state.
-	 *		.text : Compensation
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 2
-	 */
-	public GuiTestObject link_compensation() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_compensation"));
-	}
-	/**
-	 * Compensation: with specific test context and state.
-	 *		.text : Compensation
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 2
-	 */
-	public GuiTestObject link_compensation(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_compensation"), anchor, flags);
-	}
-	
-	/**
-	 * Contact: with default state.
-	 *		.text : Contact
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 3
-	 */
-	public GuiTestObject link_contact() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_contact"));
-	}
-	/**
-	 * Contact: with specific test context and state.
-	 *		.text : Contact
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 3
-	 */
-	public GuiTestObject link_contact(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_contact"), anchor, flags);
-	}
-	
-	/**
-	 * Death: with default state.
-	 *		.text : Death
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 3
-	 */
-	public GuiTestObject link_death() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_death"));
-	}
-	/**
-	 * Death: with specific test context and state.
-	 *		.text : Death
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 3
-	 */
-	public GuiTestObject link_death(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_death"), anchor, flags);
-	}
-	
-	/**
-	 * Education: with default state.
-	 *		.text : Education
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 4
-	 */
-	public GuiTestObject link_education() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_education"));
-	}
-	/**
-	 * Education: with specific test context and state.
-	 *		.text : Education
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 4
-	 */
-	public GuiTestObject link_education(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_education"), anchor, flags);
-	}
-	
-	/**
-	 * Employment: with default state.
-	 *		.text : Employment
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 5
-	 */
-	public GuiTestObject link_employment() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_employment"));
-	}
-	/**
-	 * Employment: with specific test context and state.
-	 *		.text : Employment
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 5
-	 */
-	public GuiTestObject link_employment(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_employment"), anchor, flags);
-	}
-	
-	/**
-	 * FacilityLocator: with default state.
-	 *		.text : Facility Locator
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 4
-	 */
-	public GuiTestObject link_facilityLocator() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_facilityLocator"));
-	}
-	/**
-	 * FacilityLocator: with specific test context and state.
-	 *		.text : Facility Locator
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 4
-	 */
-	public GuiTestObject link_facilityLocator(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_facilityLocator"), anchor, flags);
-	}
-	
-	/**
-	 * FeatureList: with default state.
-	 *		.text : Feature List
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/contact.html
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 5
-	 */
-	public GuiTestObject link_featureList() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_featureList"));
-	}
-	/**
-	 * FeatureList: with specific test context and state.
-	 *		.text : Feature List
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/contact.html
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 5
-	 */
-	public GuiTestObject link_featureList(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_featureList"), anchor, flags);
-	}
-	
-	/**
-	 * FinancialServices: with default state.
-	 *		.text : Financial Services
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 6
-	 */
-	public GuiTestObject link_financialServices() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_financialServices"));
-	}
-	/**
-	 * FinancialServices: with specific test context and state.
-	 *		.text : Financial Services
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 6
-	 */
-	public GuiTestObject link_financialServices(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_financialServices"), anchor, flags);
-	}
-	
-	/**
-	 * Health: with default state.
-	 *		.text : Health
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 7
-	 */
-	public GuiTestObject link_health() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_health"));
-	}
-	/**
-	 * Health: with specific test context and state.
-	 *		.text : Health
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 7
-	 */
-	public GuiTestObject link_health(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_health"), anchor, flags);
-	}
-	
-	/**
-	 * Help: with default state.
-	 *		.text : Help
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 2
-	 */
-	public GuiTestObject link_help() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_help"));
-	}
-	/**
-	 * Help: with specific test context and state.
-	 *		.text : Help
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 2
-	 */
-	public GuiTestObject link_help(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_help"), anchor, flags);
-	}
-	
-	/**
-	 * Home: with default state.
-	 *		.text : Home
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 0
-	 */
-	public GuiTestObject link_home() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_home"));
-	}
-	/**
-	 * Home: with specific test context and state.
-	 *		.text : Home
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 0
-	 */
-	public GuiTestObject link_home(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_home"), anchor, flags);
-	}
-	
-	/**
-	 * Housing: with default state.
-	 *		.text : Housing
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 8
-	 */
-	public GuiTestObject link_housing() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_housing"));
-	}
-	/**
-	 * Housing: with specific test context and state.
-	 *		.text : Housing
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 8
-	 */
-	public GuiTestObject link_housing(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_housing"), anchor, flags);
-	}
-	
-	/**
-	 * IAmA: with default state.
-	 *		.text : I Am a ...
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/i_am.html
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 6
-	 */
-	public GuiTestObject link_iAmA() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_iAmA"));
-	}
-	/**
-	 * IAmA: with specific test context and state.
-	 *		.text : I Am a ...
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/i_am.html
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 6
-	 */
-	public GuiTestObject link_iAmA(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_iAmA"), anchor, flags);
-	}
-	
-	/**
-	 * Insurance: with default state.
-	 *		.text : Insurance
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 9
-	 */
-	public GuiTestObject link_insurance() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_insurance"));
-	}
-	/**
-	 * Insurance: with specific test context and state.
-	 *		.text : Insurance
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 9
-	 */
-	public GuiTestObject link_insurance(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_insurance"), anchor, flags);
-	}
-	
-	/**
-	 * Retirement: with default state.
-	 *		.text : Retirement
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 10
-	 */
-	public GuiTestObject link_retirement() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_retirement"));
-	}
-	/**
-	 * Retirement: with specific test context and state.
-	 *		.text : Retirement
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 10
-	 */
-	public GuiTestObject link_retirement(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_retirement"), anchor, flags);
-	}
-	
-	/**
-	 * Transition: with default state.
-	 *		.text : Transition
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 11
-	 */
-	public GuiTestObject link_transition() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_transition"));
-	}
-	/**
-	 * Transition: with specific test context and state.
-	 *		.text : Transition
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 11
-	 */
-	public GuiTestObject link_transition(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_transition"), anchor, flags);
-	}
-	
-	/**
-	 * TravelTransportation: with default state.
-	 *		.text : Travel & Transportation
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 13
-	 */
-	public GuiTestObject link_travelTransportation() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_travelTransportation"));
-	}
-	/**
-	 * TravelTransportation: with specific test context and state.
-	 *		.text : Travel & Transportation
-	 * 		.id : 
-	 * 		.href : https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal?_nfpb=true&_nfxr= ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 13
-	 */
-	public GuiTestObject link_travelTransportation(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_travelTransportation"), anchor, flags);
-	}
-	
-	/**
-	 * ViewMyStatus: with default state.
-	 *		.text : View my Status
-	 * 		.id : 
-	 * 		.href : javascript:bea.wlp.disc.xie._Service.update('https://vaebnweb2.aac.va.gov/ebenef ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 1
-	 */
-	public GuiTestObject link_viewMyStatus() 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_viewMyStatus"));
-	}
-	/**
-	 * ViewMyStatus: with specific test context and state.
-	 *		.text : View my Status
-	 * 		.id : 
-	 * 		.href : javascript:bea.wlp.disc.xie._Service.update('https://vaebnweb2.aac.va.gov/ebenef ...
-	 * 		.title : 
-	 * 		.class : Html.A
-	 * 		.name : 
-	 * 		.classIndex : 1
-	 */
-	public GuiTestObject link_viewMyStatus(TestObject anchor, long flags) 
-	{
-		return new GuiTestObject(
-                        getMappedTestObject("link_viewMyStatus"), anchor, flags);
+                        getMappedTestObject("link_diagnoseConnectionProblem"), anchor, flags);
 	}
 	
 	/**
@@ -985,6 +776,35 @@ public abstract class EB_0000_ObjectMap_HelperHelper extends FuncLib.HelpUtil
 	{
 		return new TextGuiTestObject(
                         getMappedTestObject("text_LogInID"), anchor, flags);
+	}
+	
+	/**
+	 * fullName: with default state.
+	 *		.id : fullName
+	 * 		.type : text
+	 * 		.title : 
+	 * 		.class : Html.INPUT.text
+	 * 		.name : fullName
+	 * 		.classIndex : 0
+	 */
+	public TextGuiTestObject text_fullName() 
+	{
+		return new TextGuiTestObject(
+                        getMappedTestObject("text_fullName"));
+	}
+	/**
+	 * fullName: with specific test context and state.
+	 *		.id : fullName
+	 * 		.type : text
+	 * 		.title : 
+	 * 		.class : Html.INPUT.text
+	 * 		.name : fullName
+	 * 		.classIndex : 0
+	 */
+	public TextGuiTestObject text_fullName(TestObject anchor, long flags) 
+	{
+		return new TextGuiTestObject(
+                        getMappedTestObject("text_fullName"), anchor, flags);
 	}
 	
 	/**

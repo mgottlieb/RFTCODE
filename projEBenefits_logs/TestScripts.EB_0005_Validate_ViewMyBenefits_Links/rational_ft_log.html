@@ -1,0 +1,929 @@
+<HTML xmlns:xalan="http://xml.apache.org/xslt">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../Log_Assistive_Files/dojo.js" djConfig="parseOnLoad: true"></script>
+<link rel="stylesheet" type="text/css" href="../Log_Assistive_Files/log.css">
+<script type="text/javascript">
+		var dojoLocation = location.search;
+		
+		if(dojoLocation)
+		{	
+			dojoLocation = dojoLocation.substr(1);
+			dojoLocation = dojoLocation.replace(/\\/g,"/");
+			dojoLocation = "file:///" + dojoLocation;
+			var dojoRoot = dojoLocation.replace(/\/dojo\/dojo.js/,"");
+			var dojoDir = dojoRoot + "/dojo";
+			var dijitDir = dojoRoot + "/dijit";
+			var dojoxDir = dojoRoot + "/dojox";
+
+			dojo.registerModulePath("dojo",dojoDir);
+			dojo.registerModulePath("dijit",dijitDir);
+			dojo.registerModulePath("dojox",dojoxDir);	
+	
+			
+			var dojoCSS = dojo.moduleUrl("dojo","resources/dojo.css");
+			var stl1 = document.createElement("link");
+			stl1.type = "text/css";
+			stl1.rel="stylesheet";
+			stl1.href = dojoCSS.toString();
+
+			var tundraCSS= dojo.moduleUrl("dijit","themes/tundra/tundra.css");
+			var stl2 = document.createElement("link");
+			stl2.type = "text/css";
+			stl2.rel="stylesheet";
+			stl2.href = tundraCSS.toString();
+
+
+
+			document.getElementsByTagName("head")[0].appendChild(stl1);
+			document.getElementsByTagName("head")[0].appendChild(stl2);
+
+	
+			dojo.require("dijit.layout.AccordionContainer");
+			dojo.require("dijit.Tree");
+			dojo.require("dojo.data.ItemFileReadStore");
+			dojo.require("dijit.layout.SplitContainer");
+			dojo.require("dijit.layout.ContentPane");
+			dojo.require("dijit.layout.LayoutContainer");
+			dojo.require("dijit.layout.StackContainer");
+			dojo.require("dijit.TitlePane");
+			dojo.require("dojox.fx.scroll");
+			dojo.require("dojox.fx.easing");
+			dojo.require("dojo.data.ItemFileWriteStore");
+			dojo.require("dojox.fx");
+			dojo.require("dojox.charting.widget.Chart2D");			
+			dojo.require("dojox.charting.themes.PlotKit.blue");	
+			dojo.require("dijit.Toolbar");
+			dojo.require("dijit.form.Button");
+			dojo.require("dijit.form.CheckBox");
+
+			dojo.provide("rft.Tree");
+			dojo.declare("rft.Tree",[dijit.Tree],
+			{
+				onClick: function( item,  node)
+					{
+						if(item != null)
+						{
+							var idValue = this.store.getValue(item,"eventId");
+							if(isRoot(idValue))
+								idValue = idValue.substring(0, idValue.lastIndexOf("_root") );
+							updateDatapool(this.store,item);
+							var node = dojo.byId(idValue);
+							var nodeDim = dojo.coords(node);
+							var tg = { x: nodeDim.l, y: nodeDim.t };
+			
+							dojox.fx.smoothScroll({ node: node, win: dojo.byId("RightVerdictDetailPane"), target: tg, easing:dojox.fx.easing.easeOut , duration: 400}).play();
+							node.style.backgroundColor = "#FFFFFF";
+							dojox.fx.highlight({node:node, color:'#0066FF', duration:800}).play();
+							node.style.backgroundColor = "transparent";
+						}	
+						else
+						{
+							//This is the root node.
+						}
+					},
+					getIconClass: function(item)
+					{
+						if(item != null)
+						{							
+						var eventType = this.store.getValue(item,"Type");
+						var result = this.store.getValue(item,"Result");
+
+						if(eventType == "Simplified Script Group"){
+
+									if(result == "PASS") {
+									
+										return "ssGrpPassIcon";			
+									}else if(result == "FAIL"){
+
+										return "ssGrpFailIcon";			
+									}else if(result == "WARNING"){
+		
+										return "ssGrpWarnIcon";			
+									}else{
+										return "ssGrpPassIcon";
+									}
+						}
+						else if(eventType == "Script Start")
+							{
+								return "scriptStartIcon";
+							}
+							else if(eventType == "Verification Point")
+							{
+							if( result == "PASS")
+								return "vpPassIcon";			
+							else if(result == "FAIL")
+								return "vpFailIcon";
+							else if(result == "WARNING")
+								return "warningIcon";
+							else
+								return "informationIcon";
+							}
+							else
+							{
+								if( result == "PASS")
+									return "passIcon";			
+								else if(result == "FAIL")
+									return "failureIcon";
+								else if(result == "WARNING")
+									return "warningIcon";
+								else
+									return "informationIcon";
+							}		
+
+						}
+						else
+						{
+							return "verdictTreeIcon";								
+						}
+
+					},
+					getLabel: function(/*dojo.data.Item*/ item)	 
+					{
+						//This function is overwritten as Javascript dosen;t have mechanism to convert unicode to ascii.
+						if(item != null)
+						{
+							var id = this.store.getValue(item,"eventId");
+							var type = this.store.getValue(item,"Type");
+							if(id != null)
+							{
+  	  						  if(isRoot(id))
+								id = id.substring(0, id.lastIndexOf("_root") );
+
+							  var headlinerow = document.getElementById(id);
+							  //The headline is part of the third cell value.
+							 if(headlinerow !=null){
+							  if(headlinerow.cells[2] !=null)							
+							  	{
+							  		if(type=='Simplified Script Group'){
+							  		var result = headlinerow.cells[2].innerHTML + '[' + headlinerow.cells[0].innerHTML +']';
+							  		if(headlinerow.cells[1].innerHTML == ''){
+							  			return result;
+							  		}else{
+							  			return result + '['+headlinerow.cells[1].innerHTML + ']';
+							  		}
+							  	}
+							  	return headlinerow.cells[2].innerHTML;		
+							  	}	
+							  else
+							  	return null;		
+							  	}else
+							  	return null;		  
+							}
+						  }
+						  
+					},
+					getLabelClass: function(item){
+						if(item != null)
+						{							
+						var eventType = this.store.getValue(item,"Type");
+						var result = this.store.getValue(item,"Result");
+
+						if(eventType == "Simplified Script Group"){
+
+									if(result == "PASS") {
+										return 'ssGrpPassClass';			
+									}else if(result == "FAIL"){
+
+										return 'ssGrpFailClass';			
+									}else if(result == "WARNING"){
+		
+										return 'ssGrpWarnClass';			
+									}else{
+										return 'ssGrpPassClass';
+									}
+						}
+						}							
+					},					
+					getItemChildren: function( parentItem,  onComplete)
+							 {
+								 if(parentItem == null)
+								 {
+									 this.store.fetch({query: this.query, onComplete: onComplete});
+								 }
+								 else
+								 {
+
+									 var childItems = [];
+										var temp1 = [];	
+										var temp = this.store.getValues(parentItem, this.childrenAttr[0]);
+										var j= 0;
+										var tempStore123 =this.store;
+										 dojo.forEach(temp,function(temp2){
+												 if(isItemNonFiltered(tempStore123,temp2))
+												 {
+												 temp1[j]=temp2;
+												 j= j +1;
+												 }
+												});
+									 childItems= childItems.concat(temp1);
+								 	onComplete(childItems);
+
+								 }
+							}
+
+
+						});
+			
+	var dpStore = {
+					identifier: 'dpId',
+					items: []
+					};	
+	var dpLogStore = new dojo.data.ItemFileWriteStore({data : dpStore});
+	
+				
+		dpLogStore.newItem({dpId: 'dp_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0', dpUpdates: [	
+		]});
+
+	var logStore = {
+						identifier: 'eventId',
+						label: 'Headline',
+						items: [
+						{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root', TimeStamp: '20-Sep-2011 09:11:49.015 AM' ,Headline: 'Script start [TestScripts.EB_0005_Validate_ViewMyBenefits_Links]', Type: 'Script Start', Result: 'INFORMATION', Position: '1', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root', events: [
+	{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0', TimeStamp: '20-Sep-2011 09:11:49.015 AM' ,Headline: 'Script start [TestScripts.EB_0005_Validate_ViewMyBenefits_Links]', Type: 'Script Start', Result: 'INFORMATION', Position: '1', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT1', TimeStamp: '20-Sep-2011 09:11:51.498 AM' ,Headline: 'Start application [https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal]', Type: 'Application Start', Result: 'INFORMATION', Position: '2', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT2', TimeStamp: '20-Sep-2011 09:14:01.675 AM' ,Headline: 'Object Recognition is weak (above the warning threshold)', Type: 'General', Result: 'WARNING', Position: '3', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT3', TimeStamp: '20-Sep-2011 09:14:23.357 AM' ,Headline: 'Object Recognition is weak (above the warning threshold)', Type: 'General', Result: 'WARNING', Position: '4', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT4', TimeStamp: '20-Sep-2011 09:14:23.537 AM' ,Headline: 'On window <<eBenefits - Home>>, for object under test <<Welcome Tag>>, corresponding .text property actual value <<Welcome JEFF SCOTT>> matched expected value <<Welcome JEFF SCOTT>>.', Type: 'General', Result: 'PASS', Position: '5', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT5', TimeStamp: '20-Sep-2011 09:16:05.824 AM' ,Headline: 'On window <<eBenefits - CompPensionClaimStatus>>, for object under test <<Comp Login Error>>, corresponding .text property actual value <<Error We are currently unable to access information about the claims you have filed with VA. If you need help, please call 1-800-827-1000.>> matched expected value <<Error We are currently unable to access information about the claims you have filed with VA. If you need help, please call 1-800-827-1000.>>.', Type: 'General', Result: 'PASS', Position: '6', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT6', TimeStamp: '20-Sep-2011 09:16:58.249 AM' ,Headline: 'On window <<eBenefits - VAPaymentHistory>>, for object under test <<VA Payment Login Error>>, corresponding .text property actual value <<Error We are unable to locate your information online at this time. Please call 1-800-827-1000 or try again later.>> matched expected value <<Error We are unable to locate your information online at this time. Please call 1-800-827-1000 or try again later.>>.', Type: 'General', Result: 'PASS', Position: '7', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT7', TimeStamp: '20-Sep-2011 09:19:07.786 AM' ,Headline: 'On Window <<eBenefits - SAHGrant>>, for object under test <<(apply for benefits online click here)>>, If Enabled validation failed with exception <<object not found on the page>>.', Type: 'General', Result: 'FAIL', Position: '8', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT8', TimeStamp: '20-Sep-2011 09:21:00.458 AM' ,Headline: 'CRFCN0535E: Too many exceptions occurred in event handlers while invoking getProperty on object DocumentTestObject(Name: document_DOD_dmdcErrorPage, Map: DMDCErrorPage). This limit exists to prevent infinite loops when handling an event and restarting the method.  The maximum number of exceptions per method invocation is 3.', Type: 'General', Result: 'INFORMATION', Position: '9', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT9', TimeStamp: '20-Sep-2011 09:21:01.870 AM' ,Headline: 'TestScripts.EB_0005_Validate_ViewMyBenefits_Links.testMain had an unhandled exception.', Type: 'General', Result: 'FAIL', Position: '10', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	,{ eventType: 'rftevent', eventId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT10', TimeStamp: '20-Sep-2011 09:21:01.870 AM' ,Headline: 'Script end [TestScripts.EB_0005_Validate_ViewMyBenefits_Links]', Type: 'Script End', Result: 'FAIL', Position: '11', ParentId: 'event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0_root'}	
+	]}
+						
+						
+						]};
+	
+	
+	var tempStore = {identifier: 'eventId', label: 'Headline', items: []};
+	var temp1Store = {identifier: 'eventId', label: 'Headline', items: []};
+	var temp2Store = {identifier: 'eventId', label: 'Headline', items: []};
+	
+	var failedVerdictStore = new dojo.data.ItemFileWriteStore({data : tempStore});
+	var warningVerdictStore = new dojo.data.ItemFileWriteStore({data : temp1Store});
+	var verificationPointStore = new dojo.data.ItemFileWriteStore({data : temp2Store});
+	
+	var verdictSuccess = 0;
+	var verdictFailures = 0;
+	var verdictWarnings = 0;
+	var verdictMessages = 0;
+	
+	var verdictVPSuccess = 0;
+	var verdictVPFailures = 0;
+	
+	function getRFTEventType(item)
+	{
+		return continentStore.getValue(item,"eventType");
+	}
+	function getEventID(item)
+	{
+		return continentStore.getValue(item,"eventId");
+	}
+
+	function getEventTimeStamp(item)
+	{
+		return continentStore.getValue(item,"TimeStamp");
+	}
+
+	function getEventHeadline(item)
+	{
+		return continentStore.getValue(item,"Headline");
+	}
+	function getEventType(item)
+	{
+		return continentStore.getValue(item,"Type");
+	}
+	function getEventResult(item)
+	{
+		return continentStore.getValue(item,"Result");
+	}
+	function getEventParentId(item)
+	{
+		return continentStore.getValue(item,"ParentId");
+	}
+	function getEventPosition(item)
+	{
+			return continentStore.getValue(item,"Position");
+	}
+
+	function populateFailures(item)
+	{
+		failedVerdictStore.newItem({eventType: getRFTEventType(item), eventId: getEventID(item), TimeStamp: getEventTimeStamp(item), Headline: getEventHeadline(item), Type: getEventType(item), Result: getEventResult(item), Position: getEventPosition(item), ParentId: getEventParentId(item) });
+		verdictFailures = verdictFailures + 1;
+	}
+
+	function populateWarnings(item)
+	{
+		warningVerdictStore.newItem({eventType: getRFTEventType(item), eventId: getEventID(item), TimeStamp: getEventTimeStamp(item), Headline: getEventHeadline(item), Type: getEventType(item), Result: getEventResult(item), Position: getEventPosition(item), ParentId: getEventParentId(item) });
+		verdictWarnings = verdictWarnings  + 1;
+	}
+
+	function populateSuccess(item)
+	{
+		verdictSuccess = verdictSuccess + 1;	
+	}
+	
+	function populateInformation(item)
+	{
+		verdictMessages = verdictMessages + 1;
+	}
+	
+	function populateVerificationPoints(item)
+	{
+		var verdict =  getEventResult(item);
+		verificationPointStore.newItem({eventType: getRFTEventType(item), eventId: getEventID(item), TimeStamp: getEventTimeStamp(item), Headline: getEventHeadline(item), Type: getEventType(item), Result: getEventResult(item), Position: getEventPosition(item), ParentId: getEventParentId(item) });
+		if(verdict == "PASS")
+		{
+			verdictVPSuccess = verdictVPSuccess + 1;
+		}else if(verdict == "FAIL")
+		{
+			verdictVPFailures = verdictVPFailures + 1;
+		}
+	}
+
+	function routeItems(item)
+	{
+		if(item != null && !isRoot( getEventID(item) ) )
+		{
+			var verdict = getEventResult(item);
+				
+			if(verdict == "FAIL")
+			{
+				populateFailures(item);
+			}
+			else if(verdict == "WARNING")
+			{
+				populateWarnings(item);
+			}
+			else if(verdict == "PASS")
+			{
+				populateSuccess(item);
+			}
+			else if(verdict == "INFORMATION")
+			{
+				populateInformation(item);
+			}
+			var verificationPoint = getEventType(item);
+			if(verificationPoint == "Verification Point")
+			{
+				populateVerificationPoints(item);
+			}
+		}	
+	}
+function failed(error)
+{
+	alert(error);
+}
+
+function isRoot(idValue)
+{
+var index = idValue.lastIndexOf("_root");
+return (index > 1);
+}
+
+var continentStore = new dojo.data.ItemFileReadStore({data: logStore});
+continentStore.fetch({query :{eventType: "*"}, queryOptions :{ignoreCase: "true", deep: "true"}, onItem: routeItems, onError: failed });
+function updateDatapool(store,item)
+{
+	var parentIdValue = store.getValue(item,"ParentId");
+	var position = store.getValue(item,"Position");
+	var index = parentIdValue.lastIndexOf("_root");
+	if(index > 1)
+		parentIdValue = parentIdValue.substring(0,index);
+	var dpValue = parentIdValue.replace(/event_/,"dp_");
+	
+	dpLogStore.fetchItemByIdentity({identity: dpValue, onItem: function(item){
+
+				deleteStaleDatapool();
+				var dpData = dpLogStore.getValues(item,"dpUpdates")
+				
+				var dpVariableList = new Array();
+				
+				for(var i=0;i<dpData.length;i++)
+				{
+				var j = 0;
+				if(dpData[i].dpVariable && parseInt(dpData[i].CPosition) <= parseInt(position))
+				{
+					for(j=0;j<dpVariableList.length;j++)
+					{
+						if(dpVariableList[j].dpVariable == dpData[i].dpVariable)
+						{							
+							break;									
+						}
+					}
+					
+					dpVariableList[j] = dpData[i];				
+				}
+				}	
+
+				var variableRow = dojo.byId("dpVariable");
+				var valueRow = dojo.byId("dpValue");
+				for(var i=0;i<dpVariableList.length;i++)
+				{				
+					var cell=  variableRow.insertCell(i);
+					cell.innerHTML = dpVariableList[i].dpVariable;
+
+					var cell1=  valueRow.insertCell(i);
+					cell1.innerHTML = dpVariableList[i].dpValue;
+				}
+
+
+			}});	
+}
+
+function deleteStaleDatapool()
+{
+	var dpVariable = dojo.byId("dpVariable");
+	var dpValue = dojo.byId("dpValue");	
+	var num = dpVariable.cells.length;
+	for(var i=0;i<num;i++)
+	{
+		dpVariable.deleteCell(0);
+		dpValue.deleteCell(0);
+	}
+}
+
+function getSuccessCount()
+{
+	return verdictSuccess;
+}
+
+function getFailuresCount()
+{
+	return verdictFailures;
+}
+
+function getWarningsCount()
+{
+	return verdictWarnings;
+}
+
+function getMessagesCount()
+{
+	return verdictMessages;
+}
+
+function getFailuresVPCount()
+{
+	return verdictVPFailures;
+}
+
+function getSuccessVPCount()
+{
+	return verdictVPSuccess;
+}
+
+
+var totalVerdict = new Array();
+totalVerdict.push(verdictSuccess);
+totalVerdict.push(verdictFailures);
+totalVerdict.push(verdictWarnings);
+totalVerdict.push(verdictMessages);
+
+
+
+var passFilterEnabled = true;
+var failFilterEnabled = true;
+var warningFilterEnabled = true;
+var messageFilterEnabled = true;
+
+function passFilterChecked(checked)
+{
+	passFilterEnabled = checked;
+	refreshTree();
+}
+
+function failureFilterChecked(checked)
+{
+	failFilterEnabled = checked;
+	refreshTree();
+}
+function warningFilterChecked(checked)
+{
+	warningFilterEnabled = checked;
+		refreshTree();
+}
+function messageFilterChecked(checked)
+{
+	messageFilterEnabled = checked;
+		refreshTree();
+}
+
+function refreshTree()
+{
+	var verdictTree = dijit.byId("LeftVerdictOverviewTreePane");
+	if(verdictTree != null)
+	{
+		var newStore = verdictTree.store;
+		var childAttr = verdictTree.childrenAttr;
+		var label = verdictTree.label;
+		var query = verdictTree.query;
+		var id = "LeftVerdictOverviewTreePane";
+		var labelAttr = verdictTree.labelAttr; 
+		
+		verdictTree.destroy();
+
+		var newTree = new rft.Tree({ store : newStore,label: label, labelAttr: labelAttr, childrenAttr:childAttr , query:query , id:id });
+
+		dojo.byId("LeftVerdictOverviewPane").appendChild(newTree.domNode,1);
+		
+	}
+}
+function isItemNonFiltered(store,item)
+{
+	var verdict = store.getValue(item,"Result");
+	if(verdict == "PASS")
+	{
+		return passFilterEnabled;
+	}else if(verdict == "FAIL")
+	{
+		return failFilterEnabled;
+	}else if(verdict == "WARNING")
+	{
+		return warningFilterEnabled;
+	}else if(verdict == "INFORMATION")
+	{
+		return messageFilterEnabled;
+	}
+	else
+	{
+		return false;
+	}	
+}
+function comparator(base,exp,act)
+{
+	try{
+		var url = document.URL;
+		var index = url.indexOf("?");
+		if(index > 1)
+			url = url.substr(0,index);
+		document.ComparatorApplet.startComparatorEx(base,exp,act,url);
+	}
+	catch(e){
+		alert("CRFCN0309E: Error creating verification point display:\nAn enabled JRE (1.3.1_02 or better) must be associated with the browser to view VP results");
+	}
+}
+
+function toggleFilterCheckbox(id)
+{
+	var filterCkb = dijit.byId(id);
+	if(filterCkb != null)
+		filterCkb.setChecked(!filterCkb.checked);
+}
+
+var rftTheme =  dojox.charting.themes.PlotKit.blue;
+rftTheme.defineColors({colors: ["#006400","#8b0000","#b8860b","#008b8b"]});
+
+
+
+}
+</script>
+</HEAD>
+<BODY class="tundra">
+<div id="TopPane" dojoType="dijit.layout.LayoutContainer" style="width: 100%; height:100%; overflow: auto;">
+<div dojoType="dijit.layout.ContentPane" class="top" layoutAlign="top" id="banner" width="100%" height="46px">
+<img height="46px" width="80px" src="../Log_Assistive_Files/IBM_logo_banner.gif" align="right" border="0"></div>
+<div id="VerdictPane" dojoType="dijit.layout.SplitContainer" layoutAlign="client" orientation="horizontal" sizerWidth="5" activeSizing="0">
+<div id="LeftVerdictOverviewContainer" dojoType="dijit.layout.SplitContainer" orientation="vertical" sizerWidth="5" activeSizing="0" sizeShare="20" sizeMin="20">
+<div id="LeftVerdictOverviewPane" dojoType="dijit.layout.ContentPane" sizeShare="60">
+<div id="LeftVerdictOverviewDescPane" dojoType="dijit.TitlePane" open="true" title="Test Verdict">
+					Select the filter	
+					
+					<div id="verdictFilterToolbar1" dojoType="dijit.Toolbar">
+<div dojoType="dijit.form.Button" id="successFilter" iconClass="passIcon" onClick="toggleFilterCheckbox('successFilterCkb')" showLabel="true">Success</div>
+<div dojoType="dijit.form.CheckBox" id="successFilterCkb" onChange="passFilterChecked" checked="checked"></div>
+<span dojoType="dijit.ToolbarSeparator"></span>
+<div dojoType="dijit.form.Button" id="failureFilter" iconClass="failureIcon" onClick="toggleFilterCheckbox('failureFilterCkb')" showLabel="true">Failures</div>
+<div dojoType="dijit.form.CheckBox" id="failureFilterCkb" onChange="failureFilterChecked" checked="checked"></div>
+<span dojoType="dijit.ToolbarSeparator"></span>
+<div dojoType="dijit.form.Button" id="warningFilter" iconClass="warningIcon" onClick="toggleFilterCheckbox('warningFilterCkb')" showLabel="true">Warnings</div>
+<div dojoType="dijit.form.CheckBox" id="warningFilterCkb" onChange="warningFilterChecked" checked="checked"></div>
+<span dojoType="dijit.ToolbarSeparator"></span>
+<div dojoType="dijit.form.Button" id="messageFilter" iconClass="informationIcon" onClick="toggleFilterCheckbox('messageFilterCkb')" showLabel="true">Messages</div>
+<div dojoType="dijit.form.CheckBox" id="messageFilterCkb" onChange="messageFilterChecked" checked="checked"></div>
+</div>
+</div>
+<div id="LeftVerdictOverviewTreePane" dojoType="rft.Tree" store="continentStore" query="{eventType: 'rftevent'}" label="Verdict" openOnClick="true" childrenAttr="events"></div>
+</div>
+<div id="LeftVerdictSpecificsContainer" dojoType="dijit.layout.AccordionContainer" duration="200" sizeMin="20" sizeShare="40">
+<div id="LeftVerdictVerificationPane" dojoType="dijit.layout.AccordionPane" title="Verification Points">
+<div id="LeftVerdictVerificationTree" dojoType="rft.Tree" store="verificationPointStore"></div>
+</div>
+<div id="LeftVerdictFailuresPane" dojoType="dijit.layout.AccordionPane" title="Failure Verdicts">
+<div id="LeftVerdictFailureTree" dojoType="rft.Tree" store="failedVerdictStore"></div>
+</div>
+<div id="LeftVerdictWarningsPane" dojoType="dijit.layout.AccordionPane" title="Warning Verdicts">
+<div id="LeftVerdictWarningTree" dojoType="rft.Tree" store="warningVerdictStore"></div>
+</div>
+</div>
+</div>
+<div id="RightVerdictDetailContainer" dojoType="dijit.layout.SplitContainer" orientation="vertical" sizerWidth="5" sizeShare="80" activeSizing="0">
+<div id="RightVerdictDetailPane" dojoType="dijit.layout.ContentPane" layoutAlign="top" sizeShare="90">
+<div id="RightVerdictDetailOverview" dojoType="dijit.TitlePane" open="true" title="Overall Verdict">
+<table width="100%" rules="rows">
+<tr>
+<td ROWSPAN="2" width="300">
+<div layoutAlign="centre" dojoType="dojox.charting.widget.Chart2D" theme="rftTheme" id="RightVerdictOverviewChart" style="overflow-x:hidden;overflow-y:hidden;width: 300px; height: 300px;">
+<div class="plot" name="default" type="Pie" radius="100" fontColor="white" htmlLabels="false"></div>
+<div class="series" name="Overall Verdict" array="totalVerdict"></div>
+</div>
+</td><td>
+<table>
+<tr>
+<td class="passIcon" width="10px"></td><td>
+<div class="pass">Success</div>
+</td><td>:</td><td>
+<div class="pass" id="SuccessList"></div>
+</td>
+</tr>
+<tr>
+<td class="failureIcon" width="10px"></td><td>
+<div class="fail">Failures</div>
+</td><td>:</td><td align="center">
+<div class="fail" id="FailureList"></div>
+</td>
+</tr>
+<tr>
+<td class="warningIcon" width="10px"></td><td>
+<div class="warn">Warnings</div>
+</td><td>:</td><td>
+<div class="warn" id="WarningList"></div>
+</td>
+</tr>
+<tr>
+<td class="informationIcon" width="10px"></td><td>
+<div class="info">Messages</div>
+</td><td>:</td><td>
+<div class="info" id="MessageList"></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table>
+<tr>
+<td class="vpPassIcon" width="10px"></td><td>
+<div class="pass">Successful Verification Points</div>
+</td><td>:</td><td>
+<div class="pass" id="SuccessVPList"></div>
+</td>
+</tr>
+<tr>
+<td class="vpFailIcon" width="10px"></td><td>
+<div class="fail">Failed Verification Points</div>
+</td><td>:</td><td>
+<div class="fail" id="FailureVPList"></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<TABLE id="RightVerdictDetailsTable" border="1" rules="rows" width="100%" summary="Log Events">
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT0">
+<TD class="info">INFORMATION</TD><TD class="time">20-Sep-2011 09:11:49.015 AM</TD><TD class="note">Script start [TestScripts.EB_0005_Validate_ViewMyBenefits_Links]</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Line Number = </I>1</LI>
+<LI>
+<I>Iteration Count = </I>0</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT1">
+<TD class="info">INFORMATION</TD><TD class="time">20-Sep-2011 09:11:51.498 AM</TD><TD class="note">Start application [https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal]</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Property Name = </I>https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal</LI>
+<LI>
+<I>Line Number = </I>65</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT2">
+<TD class="warn">WARNING</TD><TD class="time">20-Sep-2011 09:14:01.675 AM</TD><TD class="note">Object Recognition is weak (above the warning threshold)</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>GuiTestObject(Name: lbl_welcomeTag, Map: welcome)</LI>
+<LI>Recognition score = 18,800, Warning Threshold = 10,000 {.id=welcome, .title=, .classIndex=0}</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Line Number = </I>83</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT3">
+<TD class="warn">WARNING</TD><TD class="time">20-Sep-2011 09:14:23.357 AM</TD><TD class="note">Object Recognition is weak (above the warning threshold)</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>GuiTestObject(Name: lbl_welcomeTag, Map: welcome)</LI>
+<LI>Recognition score = 18,800, Warning Threshold = 10,000 {.id=welcome, .title=, .classIndex=0}</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Line Number = </I>85</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT4">
+<TD class="pass">PASS</TD><TD class="time">20-Sep-2011 09:14:23.537 AM</TD><TD class="note">On window &lt;&lt;eBenefits - Home&gt;&gt;, for object under test &lt;&lt;Welcome Tag&gt;&gt;, corresponding '.text' property actual value &lt;&lt;Welcome JEFF SCOTT&gt;&gt; matched expected value &lt;&lt;Welcome JEFF SCOTT&gt;&gt;.</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Additional Info = </I>VP_Welcome Tag</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Line Number = </I>86</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT5">
+<TD class="pass">PASS</TD><TD class="time">20-Sep-2011 09:16:05.824 AM</TD><TD class="note">On window &lt;&lt;eBenefits - CompPensionClaimStatus&gt;&gt;, for object under test &lt;&lt;Comp Login Error&gt;&gt;, corresponding '.text' property actual value &lt;&lt;Error We are currently unable to access information about the claims you have filed with VA. If you need help, please call 1-800-827-1000.&gt;&gt; matched expected value &lt;&lt;Error We are currently unable to access information about the claims you have filed with VA. If you need help, please call 1-800-827-1000.&gt;&gt;.</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Additional Info = </I>VP_Comp Login Error</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Line Number = </I>92</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT6">
+<TD class="pass">PASS</TD><TD class="time">20-Sep-2011 09:16:58.249 AM</TD><TD class="note">On window &lt;&lt;eBenefits - VAPaymentHistory&gt;&gt;, for object under test &lt;&lt;VA Payment Login Error&gt;&gt;, corresponding '.text' property actual value &lt;&lt;Error We are unable to locate your information online at this time. Please call 1-800-827-1000 or try again later.&gt;&gt; matched expected value &lt;&lt;Error We are unable to locate your information online at this time. Please call 1-800-827-1000 or try again later.&gt;&gt;.</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Additional Info = </I>VP_VA Payment Login Error</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Line Number = </I>96</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT7">
+<TD class="fail">FAIL</TD><TD class="time">20-Sep-2011 09:19:07.786 AM</TD><TD class="note">On Window &lt;&lt;eBenefits - SAHGrant&gt;&gt;, for object under test &lt;&lt;(apply for benefits online click here)&gt;&gt;, 'If Enabled' validation failed with exception &lt;&lt;object not found on the page&gt;&gt;.</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Additional Info = </I>VP_(apply for benefits online click here)</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Line Number = </I>99</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT8">
+<TD class="info">INFORMATION</TD><TD class="time">20-Sep-2011 09:21:00.458 AM</TD><TD class="note">CRFCN0535E: Too many exceptions occurred in event handlers while invoking getProperty on object DocumentTestObject(Name: document_DOD_dmdcErrorPage, Map: DMDCErrorPage). This limit exists to prevent infinite loops when handling an event and restarting the method.  The maximum number of exceptions per method invocation is 3.</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT9">
+<TD class="fail">FAIL</TD><TD class="time">20-Sep-2011 09:21:01.870 AM</TD><TD class="note">TestScripts.EB_0005_Validate_ViewMyBenefits_Links.testMain had an unhandled exception.</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Exception Name = </I>com.rational.test.ft.TestObjectMethodEventException</LI>
+<LI>
+<I>Exception Message = </I>CRFCN0535E: Too many exceptions occurred in event handlers while invoking getProperty on object DocumentTestObject(Name: document_DOD_dmdcErrorPage, Map: DMDCErrorPage). This limit exists to prevent infinite loops when handling an event and restarting the method.  The maximum number of exceptions per method invocation is 3.</LI>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+<LI>
+<I>Line Number = </I>102</LI>
+<LI>
+<I>Exception Stack = </I> at com.rational.test.ft.object.interfaces.ClientTestObject.invokeProxy(ClientTestObject.java:393)  at com.rational.test.ft.object.interfaces.ClientTestObject.getProperty(ClientTestObject.java:473)  at TestScripts.EB_0005_Validate_ViewMyBenefits_Links.testMain(EB_0005_Validate_ViewMyBenefits_Links.java:102)  at org.eclipse.equinox.internal.app.EclipseAppContainer.callMethodWithException(EclipseAppContainer.java:587)  at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:198)  at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)  at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)  at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)  at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)  at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:619)  at org.eclipse.equinox.launcher.Main.basicRun(Main.java:574)  at org.eclipse.equinox.launcher.Main.run(Main.java:1407)  at org.eclipse.equinox.launcher.Main.main(Main.java:1383)  at org.eclipse.core.launcher.Main.main(Main.java:34) </LI>
+<LI>
+<I>Screen Snapshot = </I>rational_ft_screensnapshot.jpg</LI>
+<LI>
+<I>screen_snapshot = </I><A HREF="rational_ft_screensnapshot.jpg"><img src="rational_ft_screensnapshot.jpg" height="120" width="160" align="middle">Click to view full size</A>
+</LI>
+</UL>
+</TD>
+</TR>
+<TR id="event_TestScripts.EB_0005_Validate_ViewMyBenefits_Links_AbT10">
+<TD class="fail">FAIL</TD><TD class="time">20-Sep-2011 09:21:01.870 AM</TD><TD class="note">Script end [TestScripts.EB_0005_Validate_ViewMyBenefits_Links]</TD>
+</TR>
+<TR>
+<TD COLSPAN="3">
+<UL>
+<LI>
+<I>Script Name = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links</LI>
+<LI>
+<I>Script ID = </I>TestScripts.EB_0005_Validate_ViewMyBenefits_Links.java</LI>
+</UL>
+</TD>
+</TR>
+</TABLE>
+</div>
+<div id="RightVerdictBottomContainer" dojoType="dijit.layout.LayoutContainer" layoutAlign="bottom" sizeShare="10">
+<div id="RightVerdictBottomDatapool" dojoType="dijit.TitlePane" open="false" title="Datapool Values">
+<table id="dpTable" border="1">
+<tr id="dpVariable" align="center"></tr>
+<tr id="dpValue" align="center"></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+		if(!location.search)
+		{
+			var topTag = document.getElementById("TopPane");
+			topTag.innerHTML = "";
+			
+			
+			var inputElement = document.createElement("input");
+			inputElement.type = "file";
+			inputElement.id = "dojolocation";
+			topTag.appendChild(inputElement);
+			var openLog  = document.createElement("input");
+			openLog.type = "button";
+			openLog.id = "openlog";
+			openLog.value = "Open Log";
+			openLog.onclick = function(){
+						var dojoLoc = document.getElementById("dojolocation").value;
+						var newLoc = location.href + "?" + dojoLoc;
+						location.assign(newLoc);
+			};
+			topTag.appendChild(openLog);
+
+
+		}
+		else
+		{
+		
+			var sucCount = dojo.byId("SuccessList");
+			sucCount.innerHTML =  verdictSuccess;
+			sucCount = dojo.byId("FailureList");
+			sucCount.innerHTML =  verdictFailures;
+			sucCount = dojo.byId("WarningList");
+			sucCount.innerHTML =  verdictWarnings;
+			sucCount = dojo.byId("MessageList");
+			sucCount.innerHTML =  verdictMessages;
+			sucCount = dojo.byId("SuccessVPList");
+			sucCount.innerHTML =  verdictVPSuccess;
+			sucCount = dojo.byId("FailureVPList");	
+			sucCount.innerHTML = verdictVPFailures;
+		
+		}
+		</script><APPLET CODE="com/rational/test/ft/bootstrap/HtmlLogComparatorApplet.class" NAME="ComparatorApplet" WIDTH="0" HEIGHT="0"></APPLET></BODY>
+</HTML>

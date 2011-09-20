@@ -10,6 +10,7 @@ import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.rational.test.ft.datapool.DatapoolUtilities;
 import com.rational.test.ft.exceptions.TestObjectMethodExceptionHandler;
 import com.rational.test.ft.object.interfaces.*;
+
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -55,7 +56,7 @@ public abstract class HelpUtil extends RationalTestScript
 	               {
 	                   for (int j = 0; j < topObjects.length; ++j)
 	                   {
-	                	   System.out.println("Check1: Unexpected Window Displayed - "+topObjects[j].getProperty(".class"));
+	                	   //System.out.println("Check1: Unexpected Window Displayed - "+topObjects[j].getProperty(".class"));
 	                       if (topObjects[j].getProperty(".class").equals("Html.Dialog"))
 	                       {
 	                           // A top-level HtmlDialog is found.
@@ -68,7 +69,7 @@ public abstract class HelpUtil extends RationalTestScript
 		                               //((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
 		                               //while(topObjects[j].exists()){
 		                            	   ((TopLevelTestObject)topObjects[j]).inputChars("Y");
-		                            	   System.out.println("SecurityInfo");
+		                            	   //System.out.println("SecurityInfo");
 		                            	 //  sleep(3.0);
 		                               //}
 		                               
@@ -77,7 +78,7 @@ public abstract class HelpUtil extends RationalTestScript
 		                           catch(RuntimeException e) {}
 	                    	   } else if (topObjects[j].getProperty(".caption").equals("Security Warning")){
 	                    		   //logWarning("HtmlScript.onObjectNotFound - dismissing Security Warning dialog.");
-	                    		   System.out.println("Html.Dialog."+topObjects[j].getProperty(".caption"));
+	                    		   //System.out.println("Html.Dialog."+topObjects[j].getProperty(".caption"));
 		                           try
 		                           {
 		                               dismissedAWindow = true;
@@ -87,7 +88,7 @@ public abstract class HelpUtil extends RationalTestScript
 		                               sleep(15.0);
 		                               while(topObjects[j].getProperty(".caption").equals("Security Warning")){
 		                            	   ((TopLevelTestObject)topObjects[j]).inputKeys("{enter}");
-		                            	   //sleep(3.0);
+		                            	   sleep(10.0);
 		                               }
 		                               //((TopLevelTestObject)topObjects[j]).inputChars("Y");
 		                               //testObjectMethodState.findObjectAgain();
@@ -172,7 +173,43 @@ public abstract class HelpUtil extends RationalTestScript
 				e.printStackTrace();
 		}
 	}
-//########################################################################################	
+//########################################################################################
+	public void closeSpecificBrowser(String brTitle){
+		IWindow[] wins = getTopWindows(); 
+		for (int n = 0; n < wins.length; ++n){ 
+			if (wins[n].getText().contains(brTitle.trim())){ 
+				wins[n].close(); 
+			}
+		}	
+	}
+//########################################################################################
+	public void MaximizeAnyBrowser(){
+		IWindow[] wins = getTopWindows(); 
+		for (int n = 0; n < wins.length; ++n){ 
+			if (wins[n].getWindowClassName().equals("IEFrame")){ 
+				wins[n].maximize(); 
+			}
+		}	
+	}
+//############################################################################################
+	public int getBrowserCount(){
+		int brCount = 0;
+		DomainTestObject domains[] = getDomains();
+		   for (int i = 0; i < domains.length; ++i){
+			   if (domains[i].getName().equals("Html")){
+				   TestObject[] topObjects = domains[i].getTopObjects();
+		           if (topObjects != null){
+		        	   for (int j = 0; j < topObjects.length; ++j){
+		        	   		if (topObjects[j].getProperty(".class").equals("Html.HtmlBrowser")){
+		        	   			brCount++;
+		        	   		}
+		        	   	}
+		           }
+		       }
+			}
+		return brCount;
+		
+	}
 //########################################################################################	
 	public DomainTestObject getDomainTestObj(String DomainName){
 		DomainTestObject [] DomainColl = getDomains();
@@ -209,10 +246,33 @@ public abstract class HelpUtil extends RationalTestScript
 		}
 		catch(Exception e){
 			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
-			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+			//logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
 		}
 	}
-	//########################################################################################	
+//########################################################################################	
+	public void ValidateIfButtonEnabled(TestObject objParent, String ClassName,String objUnderTest){
+		try {
+		TestObject[] oLinkProp = objParent.find(atDescendant(".class",ClassName,".value",objUnderTest.trim()));
+		GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
+		String ActValue = oLink.getProperty(".disabled").toString();
+	
+		if (ActValue == "false"){
+			logTestResult("On window <<"+objParent.getProperty(".title") + ">>, Button object <<"+objUnderTest+">> is Enabled.", true, "VP_"+objUnderTest);
+		} else {
+			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, Button object <<"+objUnderTest+">> is Disabled.", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+		}
+		oLink.unregister();
+		oLinkProp=null;
+		unregister(oLinkProp);
+		}
+		catch(Exception e){
+			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+			//logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+		}
+	}
+//########################################################################################	
 	public void ValidateIfCheckBoxEnabled(TestObject objParent, String objUnderTest){
 		try {
 		System.out.println(objUnderTest);
@@ -236,7 +296,8 @@ public abstract class HelpUtil extends RationalTestScript
 		}
 		catch(Exception e){
 			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
-			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+			//logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
 		}
 	}
 	//########################################################################################	
@@ -268,7 +329,8 @@ public abstract class HelpUtil extends RationalTestScript
 		}
 		catch(Exception e){
 			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
-			logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+			//logError("On Window <<"+objParent.getProperty(".title")+">>, for object under test <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
 			return false;
 		}
 	}
@@ -314,22 +376,29 @@ public abstract class HelpUtil extends RationalTestScript
 	}
 	//########################################################################################	
 	public void clickLink(TestObject objParent, String objUnderTest) {
-		TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest.trim()));
-		if (objUnderTest.equals("Apply for Benefits")||objUnderTest.equals("View my Status")
-				||objUnderTest.equals("Access My Documents")||objUnderTest.equals("Browse Benefits Links")){
-			GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
-			oLink.click();
-			oLink.unregister();
+		try{
+			TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.A",".text",objUnderTest.trim()));
+			if (objUnderTest.equals("Apply for Benefits")||objUnderTest.equals("View my Status")
+					||objUnderTest.equals("Access My Documents")||objUnderTest.equals("Browse Benefits Links")){
+				GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
+				oLink.click();
+				oLink.unregister();
+			}
+			else {
+				GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
+				oLink.click();
+				oLink.unregister();
+			}
+			
+			
+			oLinkProp=null;
+			unregister(oLinkProp);
 		}
-		else {
-			GuiTestObject oLink = new GuiTestObject(oLinkProp[oLinkProp.length - 1]);
-			oLink.click();
-			oLink.unregister();
+		catch(Exception e){
+			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, failed to click link <<"+objUnderTest+">>, 'If Enabled' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
+			//logError("On Window <<"+objParent.getProperty(".title")+">>, failed to click link <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
 		}
-		
-		
-		oLinkProp=null;
-		unregister(oLinkProp);
 		
 	}
 //####################################################################################'	
@@ -343,19 +412,28 @@ public abstract class HelpUtil extends RationalTestScript
 			app.unregister();
 	}
 	//########################################################################################	
-	public void ValidateText(TestObject objParent, String objUnderTest, String ActValue, String expValue){
+	public void ValidateLblText(TestObject objParent, TestObject objUnderTest, String expValue){
 		//TestObject[] oLinkProp = objParent.find(atDescendant(".class","Html.DIV",".text",objUnderTest));
 		//GuiTestObject oLink = new GuiTestObject(oLinkProp[0]);
 		//oLink.click();
 		//String ActValue = oLink.getProperty(".text").toString();
 		//objUnderTest = objUnderTest.replaceAll(" ", "");
 		//vpManual("ValidateLabelText_"+objUnderTest, expValue, ActValue).performTest();
-		if (ActValue.equals(expValue)){
-			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, for object under test <<"+objUnderTest+">>, corresponding '.text' property actual value <<"+ActValue+">> matched expected value <<"+expValue+">>.", true,"VP_"+objUnderTest);
+		try {
+			String actValue = objUnderTest.getProperty(".text").toString();
+			if (actValue.trim().equals(expValue.trim())){
+				logTestResult("On window <<" + objParent.getProperty(".title") + ">>, for object under test <<"+objUnderTest.toString()+">>, corresponding '.text' property actual value <<"+actValue+">> matched expected value <<"+expValue+">>.", true,"VP_"+objUnderTest.toString());
+				logInfo("Actual Value: "+actValue.trim()+" and Expexted Value: "+expValue.trim());
+				
+			} else {
+				logTestResult("On window <<" + objParent.getProperty(".title") + ">>, for object under test <<"+objUnderTest.toString()+">>, corresponding '.text' property actual value <<"+actValue+">> DIDNOT match expected value <<"+expValue+">>.", false, "VP_"+objUnderTest.toString());
+			}
+		}
+		catch(Exception e){
+			logTestResult("On Window <<"+objParent.getProperty(".title")+">>, <<"+objUnderTest+">>, 'Text' validation failed with exception <<object not found on the page>>.", false, "VP_"+objUnderTest);
+			printScreen("..\\projEBenefits\\Logs\\Image_"+objUnderTest+".jpg");
 			
-		} else {
-			logTestResult("On window <<" + objParent.getProperty(".title") + ">>, for object under test <<"+objUnderTest+">>, corresponding '.text' property actual value <<"+ActValue+">> DIDNOT match expected value <<"+expValue+">>.", false, "VP_"+objUnderTest);
-			
+			//logError("On Window <<"+objParent.getProperty(".title")+">>, failed to click link <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
 		}
 		//oLink.unregister();
 		//oLinkProp=null;
@@ -422,4 +500,23 @@ public abstract class HelpUtil extends RationalTestScript
 		}
 
 
+
+//#######################################################################################
+public void ClickTabLink(TestObject objParent, String objTab, String objLink) {
+	try {
+	objParent.waitForExistence(10.0, 2.0);
+	objParent.waitForExistence(20.0, 2.0);
+	//ValidateIfEnabled(objParent,objTab);
+	clickLink(objParent,objTab);
+	objParent.waitForExistence(10.0, 2.0);
+	objParent.waitForExistence(20.0, 2.0);
+	//ValidateIfEnabled(objParent,objLink);
+	clickLink(objParent,objLink);
+	}
+	catch(Exception e){
+		logTestResult("On Window <<"+objParent.getProperty(".title")+">>, failed to click link <<"+objLink+">>.", false, "VP_"+objLink);
+		printScreen("..\\projEBenefits\\Logs\\Image_"+objLink+".jpg");
+		//logError("On Window <<"+objParent.getProperty(".title")+">>, failed to click link <<"+objUnderTest+">>, 'If Enabled' validation failed with unhandled exception <<"+e.getMessage()+">>.");
+	}
+	}
 }

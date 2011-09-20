@@ -6,7 +6,7 @@
 // insertion actions.  Any changes made directly to a helper class
 // file will be lost when automatically updated.
 
-package resources;
+package resources.TestScripts;
 import FuncLib.HelpUtil;
 import com.rational.test.ft.object.interfaces.*;
 import com.rational.test.ft.object.interfaces.SAP.*;
@@ -19,21 +19,21 @@ import com.rational.test.ft.script.*;
 import com.rational.test.ft.vp.IFtVerificationPoint;
 import com.ibm.rational.test.ft.object.interfaces.sapwebportal.*;
 /**
- * Script Name   : <b>Script1</b><br>
- * Generated     : <b>2011/08/31 9:36:15 AM</b><br>
+ * Script Name   : <b>EB_0007_Probe_eBenefits_features</b><br>
+ * Generated     : <b>2011/09/20 1:09:40 PM</b><br>
  * Description   : Helper class for script<br>
  * Original Host : Windows XP x86 5.1 build 2600 Service Pack 3 <br>
  * 
- * @since  August 31, 2011
- * @author 281MGOTT
+ * @since  September 20, 2011
+ * @author imcva
  */
-public abstract class Script1Helper extends FuncLib.HelpUtil
+public abstract class EB_0007_Probe_eBenefits_featuresHelper extends FuncLib.HelpUtil
 {
 	
 
-	protected Script1Helper()
+	protected EB_0007_Probe_eBenefits_featuresHelper()
 	{
-		setScriptName("Script1");
+		setScriptName("TestScripts.EB_0007_Probe_eBenefits_features");
 	}
 	
 }

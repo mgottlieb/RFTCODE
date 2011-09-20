@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestLog>
+	<Event dpIter="0">
+		<Event Timestamp="20-Sep-2011 02:32:37.637 PM" Type="Script Start" Headline="Script start [TestScripts.EB_0004_Validate_AccessForBenefit_Links]" Result="INFORMATION">
+			<Property line_number="1"/>
+			<Property script_iter_count="0"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:32:41.042 PM" Type="Application Start" Headline="Start application [https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal]" Result="INFORMATION">
+			<Property name="https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal"/>
+			<Property line_number="68"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:35:04.968 PM" Type="General" Headline="Object Recognition is weak (above the warning threshold)" Result="WARNING">
+			<Property ObjectLookedFor="GuiTestObject(Name: lbl_welcomeTag, Map: welcome)"/>
+			<Property objectFound="Recognition score = 13,000, Warning Threshold = 10,000
+{.id=welcome, .title=, .classIndex=0}"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="86"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:35:26.169 PM" Type="General" Headline="Object Recognition is weak (above the warning threshold)" Result="WARNING">
+			<Property ObjectLookedFor="GuiTestObject(Name: lbl_welcomeTag, Map: welcome)"/>
+			<Property objectFound="Recognition score = 13,000, Warning Threshold = 10,000
+{.id=welcome, .title=, .classIndex=0}"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="88"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:35:26.309 PM" Type="General" Headline="On window &lt;&lt;eBenefits - Home&gt;&gt;, for object under test &lt;&lt;GuiTestObject(Name: lbl_welcomeTag, Map: welcome)&gt;&gt;, corresponding &apos;.text&apos; property actual value &lt;&lt;Welcome JEFF SCOTT&gt;&gt; matched expected value &lt;&lt;Welcome JEFF SCOTT&gt;&gt;." Result="PASS">
+			<Property additional_info="VP_GuiTestObject(Name: lbl_welcomeTag, Map: welcome)"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="88"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:35:26.309 PM" Type="General" Headline="Actual Value: Welcome JEFF SCOTT and Expexted Value: Welcome JEFF SCOTT" Result="INFORMATION">
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="88"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:36:09.872 PM" Type="General" Headline="On window &lt;&lt;eBenefits - HealthBenefitsEligibiltyCheck&gt;&gt;, Button object &lt;&lt;Calculate&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Calculate"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="153"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:36:10.162 PM" Type="General" Headline="On window &lt;&lt;eBenefits - HealthBenefitsEligibiltyCheck&gt;&gt;, Button object &lt;&lt;Reset&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Reset"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="154"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:36:37.451 PM" Type="General" Headline="On window &lt;&lt;eBenefits - OrderMedicalEquipment&gt;&gt;, link object &lt;&lt;Batteries for Hearing Aids and Other Medical Devices&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Batteries for Hearing Aids and Other Medical Devices"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="158"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:36:37.702 PM" Type="General" Headline="On window &lt;&lt;eBenefits - OrderMedicalEquipment&gt;&gt;, link object &lt;&lt;Prosthetic Socks&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Prosthetic Socks"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="159"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:37:16.498 PM" Type="General" Headline="On window &lt;&lt;eBenefits - SAHGrant&gt;&gt;, for object under test &lt;&lt;GuiTestObject(Name: lbl_SplAdaptedHousingGrantAppl, Map: skip)&gt;&gt;, corresponding &apos;.text&apos; property actual value &lt;&lt;Specially Adapted Housing Grant Application and Claim Status&gt;&gt; matched expected value &lt;&lt;Specially Adapted Housing Grant Application and Claim Status&gt;&gt;." Result="PASS">
+			<Property additional_info="VP_GuiTestObject(Name: lbl_SplAdaptedHousingGrantAppl, Map: skip)"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="163"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:37:16.508 PM" Type="General" Headline="Actual Value: Specially Adapted Housing Grant Application and Claim Status and Expexted Value: Specially Adapted Housing Grant Application and Claim Status" Result="INFORMATION">
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="163"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:37:16.748 PM" Type="General" Headline="On window &lt;&lt;eBenefits - SAHGrant&gt;&gt;, link object &lt;&lt;(apply for benefits online click here)&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_(apply for benefits online click here)"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="164"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:38:11.276 PM" Type="General" Headline="On window &lt;&lt;eBenefits - HomeLoanCOE&gt;&gt;, link object &lt;&lt;Please complete an electronic application&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Please complete an electronic application"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="168"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:38:11.527 PM" Type="General" Headline="On window &lt;&lt;eBenefits - HomeLoanCOE&gt;&gt;, link object &lt;&lt;Review an online correspondence file&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Review an online correspondence file"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="169"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:38:11.777 PM" Type="General" Headline="On window &lt;&lt;eBenefits - HomeLoanCOE&gt;&gt;, link object &lt;&lt;Upload requested documents&gt;&gt; is Enabled." Result="PASS">
+			<Property additional_info="VP_Upload requested documents"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="170"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:38:58.805 PM" Type="General" Headline="On window &lt;&lt;eBenefits - SGLI&gt;&gt;, for object under test &lt;&lt;GuiTestObject(Name: lbl_lblSGLI, Map: lblSGLI)&gt;&gt;, corresponding &apos;.text&apos; property actual value &lt;&lt;Servicemembers&apos; Group Life Insurance (SGLI) Status&gt;&gt; matched expected value &lt;&lt;Servicemembers&apos; Group Life Insurance (SGLI) Status&gt;&gt;." Result="PASS">
+			<Property additional_info="VP_GuiTestObject(Name: lbl_lblSGLI, Map: lblSGLI)"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="174"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:38:58.805 PM" Type="General" Headline="Actual Value: Servicemembers&apos; Group Life Insurance (SGLI) Status and Expexted Value: Servicemembers&apos; Group Life Insurance (SGLI) Status" Result="INFORMATION">
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="174"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:39:45.242 PM" Type="General" Headline="On window &lt;&lt;eBenefits - VGLI&gt;&gt;, for object under test &lt;&lt;GuiTestObject(Name: lbl_iEcannotDisplay, Map: IEPageFailure)&gt;&gt;, corresponding &apos;.text&apos; property actual value &lt;&lt;Internet Explorer cannot display the webpage&gt;&gt; matched expected value &lt;&lt;Internet Explorer cannot display the webpage&gt;&gt;." Result="PASS">
+			<Property additional_info="VP_GuiTestObject(Name: lbl_iEcannotDisplay, Map: IEPageFailure)"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="178"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:39:45.242 PM" Type="General" Headline="Actual Value: Internet Explorer cannot display the webpage and Expexted Value: Internet Explorer cannot display the webpage" Result="INFORMATION">
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="178"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:39:45.512 PM" Type="General" Headline="On Window &lt;&lt;eBenefits - VGLI&gt;&gt;, for object under test &lt;&lt;Veterans&apos; Group Life Insurance (VGLI)&gt;&gt;, &apos;If Enabled&apos; validation failed with exception &lt;&lt;object not found on the page&gt;&gt;." Result="FAIL">
+			<Property additional_info="VP_Veterans&apos; Group Life Insurance (VGLI)"/>
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property line_number="179"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+		<Event Timestamp="20-Sep-2011 02:39:45.512 PM" Type="Script End" Headline="Script end [TestScripts.EB_0004_Validate_AccessForBenefit_Links]" Result="FAIL">
+			<Property script_name="TestScripts.EB_0004_Validate_AccessForBenefit_Links"/>
+			<Property script_id="TestScripts.EB_0004_Validate_AccessForBenefit_Links.java"/>
+		</Event>
+	</Event>
+</TestLog>

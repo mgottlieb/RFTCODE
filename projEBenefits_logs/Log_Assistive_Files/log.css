@@ -1,0 +1,108 @@
+html,body { height: 100%; width: 100%; margin: 0; padding: 0; overflow: auto }
+table caption {color: darkblue; font-size: x-large; font-weight: bold}
+div.top{background-image: url(RFT_banner.gif)}
+  tr{background-color: #FFFFFF}
+  td {font-weight: bold}
+  td.fail {color: darkred; width: 10% }
+  td.warn {color: darkgoldenrod; width: 10% }
+  td.pass {color: darkgreen; width: 10% }
+  td.unkn {color: darkcyan; width: 10% }
+  td.info {width: 10% }
+  td.time {width: 30%; font-weight: normal}
+  td.note { font-weight: bold}
+  td.timeElapsed{color: #008080; font:italic bold 16px/20px arial,sans-serif}
+  td.passStatus{color: #2E8B57; font:italic bold 16px/20px arial,sans-serif}
+  td.warnStatus{color: #DAA520; font:italic bold 16px/20px arial,sans-serif}
+  td.failStatus{color: #800000; font:italic bold 16px/20px arial,sans-serif}
+  td.ssheadline{font:italic bold 16px/20px arial,sans-serif}
+  li {font-weight: normal}
+  div.pass {font-weight: normal; color: darkgreen}
+  div.fail {font-weight: normal; color: darkred }
+  div.warn {font-weight: normal; color: darkgoldenrod}
+  div.info {font-weight: normal; color: darkcyan}
+	.passIcon 
+	{
+	background-image:url(passIcon_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;
+	}
+	.failureIcon
+	{
+	background-image:url(failIcon_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.informationIcon
+	{
+	background-image:url(infoIcon_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.warningIcon
+	{
+	background-image:url(warnIcon_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.vpPassIcon
+	{
+	background-image:url(vpPass_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.vpFailIcon
+	{
+	background-image:url(vpFail_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.verdictTreeIcon
+	{
+	background-image:url(logTree_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.scriptStartIcon
+	{
+	background-image:url(scriptStart_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.ssGrpPassIcon
+	{
+	background-image:url(rftcustpass_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.ssGrpFailIcon
+	{
+	background-image:url(rftcustfail_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.ssGrpWarnIcon
+	{
+	background-image:url(rftcustwarn_obj.gif);
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;	
+	}
+	.ssGrpPassClass{
+    	color: green;
+    }
+    .ssGrpFailClass{
+    	color: red;
+    }
+    .ssGrpWarnClass{
+    	color: pink;
+    }

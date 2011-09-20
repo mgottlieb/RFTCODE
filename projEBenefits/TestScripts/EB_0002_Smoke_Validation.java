@@ -50,7 +50,7 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			properties.load(new FileInputStream("..\\projEBenefits\\Config\\testConfig.txt"));
 			//Initiate Shared Object Map here. 
 			EB_0000_ObjectMap_Helper objMap = new EB_0000_ObjectMap_Helper();
-					
+			IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\ValidateLinks.csv");		
 			/**closeBrowserAny(): close all existing browsers*/
 			closeBrowserAny();
 			
@@ -67,8 +67,7 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			objMap.button_logOnsubmit().click();
 			objMap.lbl_welcomeTag().waitForExistence(5.0, 2.0);
 			objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
-			String actValue = objMap.lbl_welcomeTag().getProperty(".text").toString();
-			ValidateText(objMap.document_eBenefitsHome(), "Welcome Tag", actValue.trim(), "Welcome JEFF SCOTT");
+			ValidateLblText(objMap.document_eBenefitsHome(), objMap.lbl_welcomeTag(), oDP.dpString("valWelcomeLabel").trim());
 			
 			
 			/**Open and Initialize DataPool.
@@ -76,7 +75,7 @@ public class EB_0002_Smoke_Validation extends EB_0002_Smoke_ValidationHelper
 			Also, make sure there is a corresponding csv file at TestData folder.
 			csv filename should be same as testscript name. 
 			*/
-			IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\ValidateLinks.csv");
+			
 			String strTemp = "Empty";
 			while(!oDP.dpDone()){
 				if (!(oDP.dpString("TabName").equals(strTemp)))

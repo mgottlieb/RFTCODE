@@ -74,8 +74,7 @@ public class EB_0003_Validate_Benefit_Links extends EB_0003_Validate_Benefit_Lin
 					objMap.button_logOnsubmit().click();
 					objMap.lbl_welcomeTag().waitForExistence(15.0, 2.0);
 					objMap.document_eBenefitsHome().waitForExistence(15.0, 2.0);
-					String actValue = objMap.lbl_welcomeTag().getProperty(".text").toString();
-					ValidateText(objMap.document_eBenefitsHome(), "Welcome Tag", actValue.trim(), oDP.dpString("valWelcomeLabel").trim());
+					ValidateLblText(objMap.document_eBenefitsHome(), objMap.lbl_welcomeTag(), oDP.dpString("valWelcomeLabel").trim());
 				}
 				UserLevel enumUserLevel = UserLevel.valueOf(oDP.dpString("UserLevel").trim());
 				
