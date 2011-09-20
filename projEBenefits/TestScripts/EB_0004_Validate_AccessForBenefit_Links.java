@@ -122,7 +122,7 @@ public class EB_0004_Validate_AccessForBenefit_Links extends EB_0004_Validate_Ac
 					ValidateIfLinkEnabled(objMap.document_eBenefitsHome(),"I Have Used VONAPP Before");
 					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits", "Search for a Representative");
-					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Next");
+					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Html.INPUT.button","Next");
 					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits", "Benefits Explorer");
 					sleep(3.0);
