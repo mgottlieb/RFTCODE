@@ -35,7 +35,7 @@ public class EB_0003_Validate_Benefit_Links extends EB_0003_Validate_Benefit_Lin
 	 */
 	enum UserLevel {Level1,Level2,Anonymous}
 	public boolean blnFlag[] = new boolean[6];
-	public void testMain(Object[] args) 
+	public void testMain(String[] args) 
 	{
 		// TODO Insert code here
 		
@@ -43,97 +43,55 @@ public class EB_0003_Validate_Benefit_Links extends EB_0003_Validate_Benefit_Lin
 		 * Make sure there is testConfig.properties saved at config folder.
 		 */
 		
-		setOption(IOptionName.BRING_UP_LOGVIEWER, false);
-		setOption(IOptionName.LOG_APPLICATION_GUI_ACTION, false);
-		setOption(IOptionName.LOG_EXCEPTION_SNAPSHOT, true);
-		setOption(IOptionName.LOG_FORMAT, "xml");
-		
-		Properties properties = new Properties();
-		
-		try {
-			properties.load(new FileInputStream("..\\projEBenefits\\Config\\testConfig.txt"));
-			
-			//Initiate Shared Object Map here. 
-			EB_0000_ObjectMap_Helper objMap = new EB_0000_ObjectMap_Helper();
+		//Initiate Shared Object Map here. 
+		EB_0000_ObjectMap_Helper objMap = new EB_0000_ObjectMap_Helper();
 					
-			/**closeBrowserAny(): close all existing browsers*/
-			closeBrowserAny();
-			sleep(3.0);
-			/**startBrowser(): Open new browser and invoke URL defined in Config.Properties file
-			*/
-			startBrowser("Internet Explorer", properties.getProperty("url"));
-			objMap.document_eBenefitsHome().waitForExistence(20.0, 2.0);
-			IDatapoolIterator oDP = getDataPoolObj("..\\projEBenefits\\TestData\\Level_LoginPwd.csv");
-			while(!oDP.dpDone()){
-				if (!objMap.lbl_welcomeTag().exists()){
-					getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").waitForExistence(30.0,2.0);
-					getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".text", "Login").click();
-					objMap.button_logOnsubmit().waitForExistence(30.0, 2.0);
-					objMap.text_LogInID().setText(oDP.dpString("UserID").trim());
-					objMap.text_pwd().setText(oDP.dpString("Password").trim());
-					objMap.button_logOnsubmit().click();
-					objMap.lbl_welcomeTag().waitForExistence(15.0, 2.0);
-					objMap.document_eBenefitsHome().waitForExistence(15.0, 2.0);
-					ValidateLblText(objMap.document_eBenefitsHome(), objMap.lbl_welcomeTag(), oDP.dpString("valWelcomeLabel").trim());
-				}
-				UserLevel enumUserLevel = UserLevel.valueOf(oDP.dpString("UserLevel").trim());
-				
-				switch(enumUserLevel){
-					case Level2:
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Benefits By State");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Benefits By State");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Compensation");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Compensation");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Death");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Death");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Education");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Education");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Employment");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Employment");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Financial Services");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Financial Services");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Health");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Health");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Housing");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Housing");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Insurance");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Insurance");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Retirement");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Retirement");
-						
-						ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Travel & Transportation");
-						ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Travel & Transportation");
-						break;
-					case Level1:
-						System.out.println("Level1 Under Construction");
-				        break;
-					case Anonymous:
-						System.out.println("Anonymous Under Construction");
-						break;
-
-				}
-				
-				//objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
-				//getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".value", "Logout").waitForExistence(30.0,2.0);
-				//getObject(objMap.document_eBenefitsHome(), "Html.BUTTON", ".value", "Logout").click();
-				//objMap.document_eBenefitsHome().waitForExistence(10.0, 2.0);
-				oDP.dpNext();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		UserLevel enumUserLevel = UserLevel.valueOf(args[0]);
 		
+		switch(enumUserLevel){
+			case Level2:
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links", "Benefits By State");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Benefits By State");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Compensation");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Compensation");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Death");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Death");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Education");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Education");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Employment");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Employment");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Financial Services");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Financial Services");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Health");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Health");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Housing");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Housing");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Insurance");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Insurance");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Retirement");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Retirement");
+				
+				ClickTabLink(objMap.document_eBenefitsHome(), "Browse Benefits Links","Travel & Transportation");
+				ValidateRecipientCheckBox(objMap.document_eBenefitsHome(), "Travel & Transportation");
+				break;
+			case Level1:
+				System.out.println("Level1 Under Construction");
+		        break;
+			case Anonymous:
+				System.out.println("Anonymous Under Construction");
+				break;
+
+		}
+				
 	}
 //#########################################################################################################################	
 	public void ClickTabLink(TestObject objParent, String objTab, String objLink) {
