@@ -90,7 +90,7 @@ public class EB_0004_Validate_AccessForBenefit_Links extends EB_0004_Validate_Ac
 				UserLevel enumUserLevel = UserLevel.valueOf(oDP.dpString("UserLevel").trim());
 				switch(enumUserLevel){
 				case Level2:
-/*					
+					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits", "eLearning Center");
 					//Except for IE7, this validation will fail for any other browser.
 					objMap.document_internetExplorerCanno().waitForExistence(30.0, 1.0);
@@ -122,7 +122,7 @@ public class EB_0004_Validate_AccessForBenefit_Links extends EB_0004_Validate_Ac
 					ValidateIfLinkEnabled(objMap.document_eBenefitsHome(),"I Have Used VONAPP Before");
 					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits", "Search for a Representative");
-					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Next");
+					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Html.INPUT.button","Next");
 					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits", "Benefits Explorer");
 					sleep(3.0);
@@ -131,8 +131,8 @@ public class EB_0004_Validate_AccessForBenefit_Links extends EB_0004_Validate_Ac
 						closeSpecificBrowser("eBenefits - Apply");
 					}
 					MaximizeAnyBrowser();
-					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Show Benefits");
-					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Reset Profile");
+					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Html.INPUT.submit", "Show Benefits");
+					ValidateIfButtonEnabled(objMap.document_eBenefitsHome(), "Html.INPUT.button","Reset Profile");
 					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits","Apply for Veterans Benefits - Manage List of Dependents (VONAPP Direct Connect)");
 					ValidateIfLinkEnabled(objMap.document_agentOrangeFastTrackC(),"Apply for Dependent Benefits >");
@@ -146,7 +146,7 @@ public class EB_0004_Validate_AccessForBenefit_Links extends EB_0004_Validate_Ac
 					ValidateIfLinkEnabled(objMap.document_agentOrangeFastTrackC(),"Help");
 					ValidateIfLinkEnabled(objMap.document_agentOrangeFastTrackC(),"Contact Fast Track");
 					closeSpecificBrowser("Fast Track Claims");
-*/					
+					
 					ClickTabLink(objMap.document_eBenefitsHome(), "Apply for Benefits", "Health Benefits Eligibility Check");
 					objMap.document_eBenefitsHome().waitForExistence(60.0, 2.0);
 					MaximizeAnyBrowser();
