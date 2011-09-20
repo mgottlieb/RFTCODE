@@ -1,6 +1,7 @@
 Filename: "testConfig.properties"
 #PINT_URL
-url = https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal
+#url = https://pint.ebenefits.va.gov/ebenefits-portal/ebenefits.portal
 #QA_URL
 #url = https://vaebnweb2.aac.va.gov/ebenefits-portal/ebenefits.portal
-#preprod_url = 
+#PREPROD URL
+url=https://ebenefits-preprod.aac.va.gov/ebenefits-portal/ebenefits.portal
